@@ -1,0 +1,4 @@
+pod 'SVProgressHUD'
+pod 'MJRefresh'
+pod 'AVOSCloud'
+pod 'AVOSCloudIM'
