@@ -1,0 +1,26 @@
+PODS:
+  - AVOSCloud (3.2.7)
+  - AVOSCloudIM (3.2.7):
+    - AVOSCloud
+  - LGSublimationView (1.0.0)
+  - MJRefresh (3.1.0)
+  - SDAutoLayout (1.52)
+  - SVProgressHUD (2.0.3)
+
+DEPENDENCIES:
+  - AVOSCloud
+  - AVOSCloudIM
+  - LGSublimationView
+  - MJRefresh
+  - SDAutoLayout (~> 1.51)
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  AVOSCloud: 957d1508104d7c8ed501df9d9b734d7a98c2e047
+  AVOSCloudIM: ec08eaec4d27d732e3be93eadeb3bcf1355b5dcf
+  LGSublimationView: bc6bad5a336494b304c41ad05dce69366bd9ceda
+  MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  SDAutoLayout: 7c92e8f149059e80010507e471e1b4b6c85a62bb
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+
+COCOAPODS: 0.39.0
