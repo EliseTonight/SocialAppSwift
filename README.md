@@ -1,6 +1,4 @@
-# SocialAppSwift
-Social
-
+#### SocialAppSwift
 A social application 
 ###please use this account:
 ###phone 15112345678 
