@@ -24,7 +24,6 @@
 		C5127BD61CBE13F800AF2E3F /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5127BD51CBE13F800AF2E3F /* MeViewController.swift */; };
 		C5127BD81CBE14C900AF2E3F /* CustomProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5127BD71CBE14C900AF2E3F /* CustomProperties.swift */; };
 		C5127BDA1CBE18CD00AF2E3F /* TableSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5127BD91CBE18CD00AF2E3F /* TableSwitchView.swift */; };
-		C5127BEC1CBE25A600AF2E3F /* ShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5127BEB1CBE25A600AF2E3F /* ShareModel.swift */; };
 		C5127BF31CBE287200AF2E3F /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5127BF11CBE287200AF2E3F /* ShareView.swift */; };
 		C5127BF41CBE287200AF2E3F /* ShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5127BF21CBE287200AF2E3F /* ShareView.xib */; };
 		C5127BFD1CBE2C5E00AF2E3F /* ProCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5127BFB1CBE2C5E00AF2E3F /* ProCell.swift */; };
@@ -207,7 +206,6 @@
 		C5127BD51CBE13F800AF2E3F /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		C5127BD71CBE14C900AF2E3F /* CustomProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProperties.swift; sourceTree = "<group>"; };
 		C5127BD91CBE18CD00AF2E3F /* TableSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableSwitchView.swift; sourceTree = "<group>"; };
-		C5127BEB1CBE25A600AF2E3F /* ShareModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareModel.swift; path = ../../../iOS/LittleDay/LittleDay/ShareModel.swift; sourceTree = "<group>"; };
 		C5127BF11CBE287200AF2E3F /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		C5127BF21CBE287200AF2E3F /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
 		C5127BFB1CBE2C5E00AF2E3F /* ProCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProCell.swift; sourceTree = "<group>"; };
@@ -514,7 +512,6 @@
 			isa = PBXGroup;
 			children = (
 				C5127BD71CBE14C900AF2E3F /* CustomProperties.swift */,
-				C5127BEB1CBE25A600AF2E3F /* ShareModel.swift */,
 				C54F24E91CBF39380004C629 /* UserModel.swift */,
 				C55335571CC5F30A002E141D /* EnthusModel.swift */,
 				C5AA74D61CC656B9005F85E7 /* CustomCellDetail.swift */,
@@ -1207,7 +1204,6 @@
 				C5A771111CC3C59B008A11A1 /* UIView+.swift in Sources */,
 				C55335831CC5FD79002E141D /* SDWebImageDownloaderOperation.m in Sources */,
 				C53BCF1B1CC8C93600236258 /* ConverseViewController.swift in Sources */,
-				C5127BEC1CBE25A600AF2E3F /* ShareModel.swift in Sources */,
 				C55335821CC5FD79002E141D /* SDWebImageDownloader.m in Sources */,
 				C58E33E51CBF812B00205AEC /* JiroTextField.swift in Sources */,
 				C5AA74D71CC656B9005F85E7 /* CustomCellDetail.swift in Sources */,

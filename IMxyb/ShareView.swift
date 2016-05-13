@@ -13,8 +13,8 @@ class ShareView: UIView {
     
     weak var shareVC:UIViewController?
     
-    
-    var shareModel:ShareModel?
+//    
+//    var shareModel:ShareModel?
     
     @IBAction func weChatButton(sender: UIButton) {
         hideShareView()
