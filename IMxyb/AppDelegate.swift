@@ -7,19 +7,19 @@
 //
 
 import UIKit
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    ///leanCloud云的id与key，自填
+    private let cilentId = ""
+    private let cilentKey = ""
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        
-        
-        
-        
+        setWindows()
+        setAppAppearance()
+//        AVOSCloud.setApplicationId(cilentId, clientKey: cilentKey)
         
         
         
@@ -27,6 +27,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    
+    private func setWindows() {
+        self.window = UIWindow(frame: AppSize)
+        self.window?.rootViewController = MainTabViewController()
+        self.window?.makeKeyAndVisible()
+    }
+    //设置App公共外表
+    private func setAppAppearance() {
+        //设置tabbarItem的外表
+        let itemAppearance = UITabBarItem.appearance()
+        itemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.blackColor(),NSFontAttributeName:UIFont.systemFontOfSize(12)], forState: .Selected)
+        itemAppearance.setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.grayColor(), NSFontAttributeName : UIFont.systemFontOfSize(12)], forState: .Normal)
+        //设置Navigation的外表
+        let navigationAppearance = UINavigationBar.appearance()
+        //Navigation半透明设置,半透明下也可以由数据，故会导致View的Frame错误
+        
+        navigationAppearance.translucent = false
+        navigationAppearance.titleTextAttributes = [NSFontAttributeName:UIFont.systemFontOfSize(18),NSForegroundColorAttributeName:UIColor.blackColor()]
+        //设置item
+        let barItemAppearance = UIBarButtonItem.appearance()
+        barItemAppearance.setTitleTextAttributes([NSFontAttributeName:UIFont.systemFontOfSize(16),NSForegroundColorAttributeName:UIColor.blackColor()], forState: .Normal)
+    }
+    
+    
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ShareView" customModule="IMxyb" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="370" height="155"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享至" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcw-ut-FO1">
+                    <rect key="frame" x="0.0" y="10" width="370" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="evd-Ul-Go1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GX-MY-FE6">
+                    <rect key="frame" x="243" y="42" width="117" height="70"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="117" id="Zrk-FP-jvO"/>
+                    </constraints>
+                    <state key="normal" image="login_weixin"/>
+                    <connections>
+                        <action selector="sinaWeiboButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="Sn1-1O-Oqa"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="朋友圈" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Lp-5m-Fee">
+                    <rect key="frame" x="127" y="117" width="117" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofh-zb-8Hb">
+                    <rect key="frame" x="243" y="117" width="117" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QQ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MlN-eM-9aX">
+                    <rect key="frame" x="8" y="117" width="111" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99e-h1-2uN">
+                    <rect key="frame" x="127" y="42" width="117" height="70"/>
+                    <state key="normal" image="login_weibo"/>
+                    <connections>
+                        <action selector="friendsButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="mbG-Nq-gqn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6qz-0L-ubi">
+                    <rect key="frame" x="8" y="45" width="111" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="111" id="epr-a2-Jfh"/>
+                    </constraints>
+                    <state key="normal" image="login_qq"/>
+                    <connections>
+                        <action selector="weChatButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="MM0-yh-GKA"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="4Lp-5m-Fee" firstAttribute="baseline" secondItem="MlN-eM-9aX" secondAttribute="baseline" id="0eJ-iB-cIK"/>
+                <constraint firstItem="5GX-MY-FE6" firstAttribute="trailing" secondItem="Ofh-zb-8Hb" secondAttribute="trailing" id="19T-aU-bJE"/>
+                <constraint firstItem="4Lp-5m-Fee" firstAttribute="leading" secondItem="MlN-eM-9aX" secondAttribute="trailing" constant="8" symbolic="YES" id="2GP-6s-9z5"/>
+                <constraint firstItem="MlN-eM-9aX" firstAttribute="top" secondItem="6qz-0L-ubi" secondAttribute="bottom" constant="8" symbolic="YES" id="2Vf-4E-OV0"/>
+                <constraint firstItem="4Lp-5m-Fee" firstAttribute="leading" secondItem="99e-h1-2uN" secondAttribute="leading" id="4HP-GB-Iyx"/>
+                <constraint firstItem="5GX-MY-FE6" firstAttribute="top" secondItem="99e-h1-2uN" secondAttribute="top" id="6kQ-XH-ZSh"/>
+                <constraint firstItem="5GX-MY-FE6" firstAttribute="leading" secondItem="Ofh-zb-8Hb" secondAttribute="leading" id="8F6-XB-5Zw"/>
+                <constraint firstItem="6qz-0L-ubi" firstAttribute="centerY" secondItem="99e-h1-2uN" secondAttribute="centerY" id="8H2-7w-Jus"/>
+                <constraint firstItem="99e-h1-2uN" firstAttribute="leading" secondItem="6qz-0L-ubi" secondAttribute="trailing" constant="8" symbolic="YES" id="Ay8-aM-YfY"/>
+                <constraint firstAttribute="trailing" secondItem="5GX-MY-FE6" secondAttribute="trailing" constant="10" id="Fhf-fa-VtM"/>
+                <constraint firstItem="5GX-MY-FE6" firstAttribute="baseline" secondItem="99e-h1-2uN" secondAttribute="baseline" id="Lve-kc-25u"/>
+                <constraint firstItem="4Lp-5m-Fee" firstAttribute="trailing" secondItem="99e-h1-2uN" secondAttribute="trailing" id="cCF-KL-H6q"/>
+                <constraint firstItem="rcw-ut-FO1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="clC-ZA-5ga"/>
+                <constraint firstItem="5GX-MY-FE6" firstAttribute="firstBaseline" secondItem="99e-h1-2uN" secondAttribute="firstBaseline" id="eq2-FT-8jU"/>
+                <constraint firstItem="rcw-ut-FO1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="iCW-cQ-vBW"/>
+                <constraint firstItem="Ofh-zb-8Hb" firstAttribute="baseline" secondItem="4Lp-5m-Fee" secondAttribute="baseline" id="ibl-Ih-QJ4"/>
+                <constraint firstItem="99e-h1-2uN" firstAttribute="top" secondItem="rcw-ut-FO1" secondAttribute="bottom" constant="10" id="jUR-wz-3tB"/>
+                <constraint firstItem="4Lp-5m-Fee" firstAttribute="top" secondItem="99e-h1-2uN" secondAttribute="bottom" constant="5" id="nJg-3e-hoN"/>
+                <constraint firstAttribute="trailing" secondItem="rcw-ut-FO1" secondAttribute="trailing" id="r48-UT-RxG"/>
+                <constraint firstItem="rcw-ut-FO1" firstAttribute="centerX" secondItem="99e-h1-2uN" secondAttribute="centerX" id="v24-oC-FRR"/>
+                <constraint firstItem="6qz-0L-ubi" firstAttribute="leading" secondItem="MlN-eM-9aX" secondAttribute="leading" id="vMY-RC-w3M"/>
+                <constraint firstItem="6qz-0L-ubi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="yIi-57-1xc"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="351" y="326.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="login_qq" width="64" height="64"/>
+        <image name="login_weibo" width="64" height="64"/>
+        <image name="login_weixin" width="64" height="64"/>
+    </resources>
+</document>

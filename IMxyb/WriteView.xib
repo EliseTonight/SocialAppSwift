@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WriteView" customModule="IMxyb" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efd-6N-Kv2">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="写回复" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E0a-4m-woL">
+                    <rect key="frame" x="4" y="5" width="312" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="textEnd:" destination="iN0-l3-epB" eventType="editingDidEnd" id="ixq-W9-eJv"/>
+                        <action selector="textExit:" destination="iN0-l3-epB" eventType="editingDidEndOnExit" id="8NU-BT-pzt"/>
+                    </connections>
+                </textField>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="efd-6N-Kv2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="93s-Zo-2I2"/>
+                <constraint firstItem="E0a-4m-woL" firstAttribute="centerY" secondItem="efd-6N-Kv2" secondAttribute="centerY" id="LAs-fu-0iv"/>
+                <constraint firstItem="efd-6N-Kv2" firstAttribute="centerX" secondItem="E0a-4m-woL" secondAttribute="centerX" id="OKp-qg-cqj"/>
+                <constraint firstItem="E0a-4m-woL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="Otx-e7-sUG"/>
+                <constraint firstItem="efd-6N-Kv2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="R9B-d1-kcI"/>
+                <constraint firstAttribute="trailing" secondItem="efd-6N-Kv2" secondAttribute="trailing" id="VGg-jy-kQh"/>
+                <constraint firstAttribute="bottom" secondItem="efd-6N-Kv2" secondAttribute="bottom" id="mwx-5S-MG3"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="textFieldView" destination="E0a-4m-woL" id="GXa-TB-d77"/>
+            </connections>
+            <point key="canvasLocation" x="19" y="259"/>
+        </view>
+    </objects>
+</document>

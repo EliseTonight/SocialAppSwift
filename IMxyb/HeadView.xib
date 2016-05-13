@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HeadView" customModule="IMxyb" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不如远走高飞----小记者成长收集（8）" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvP-oy-p1F">
+                    <rect key="frame" x="8" y="8" width="304" height="85"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head" translatesAutoresizingMaskIntoConstraints="NO" id="MZG-fg-VSH" customClass="CornerImageView" customModule="IMxyb" customModuleProvider="target">
+                    <rect key="frame" x="8" y="101" width="41" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="41" id="22N-Ky-cKT"/>
+                        <constraint firstAttribute="height" constant="41" id="3Bz-KV-CX8"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="慕容素衣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiG-1G-vP2">
+                    <rect key="frame" x="57" y="101" width="117" height="26"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-03-22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e0I-aq-a9f">
+                    <rect key="frame" x="57" y="125" width="190" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="gdx-6q-bIW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="的日记" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pHk-Gi-O33">
+                    <rect key="frame" x="182" y="101" width="65" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="65" id="Q3l-Eb-c6D"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="pHk-Gi-O33" secondAttribute="trailing" constant="73" id="31g-8J-Qa2"/>
+                <constraint firstItem="MZG-fg-VSH" firstAttribute="top" secondItem="bvP-oy-p1F" secondAttribute="bottom" constant="8" symbolic="YES" id="7j3-yl-tPE"/>
+                <constraint firstItem="bvP-oy-p1F" firstAttribute="leading" secondItem="MZG-fg-VSH" secondAttribute="leading" id="7ve-uK-j1d"/>
+                <constraint firstItem="bvP-oy-p1F" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="CiK-Yd-QP7"/>
+                <constraint firstItem="pHk-Gi-O33" firstAttribute="leading" secondItem="CiG-1G-vP2" secondAttribute="trailing" constant="8" symbolic="YES" id="Eui-Fg-EJN"/>
+                <constraint firstItem="CiG-1G-vP2" firstAttribute="leading" secondItem="MZG-fg-VSH" secondAttribute="trailing" constant="8" symbolic="YES" id="FsB-3o-wpP"/>
+                <constraint firstAttribute="bottom" secondItem="CiG-1G-vP2" secondAttribute="bottom" constant="23" id="NwF-si-0Ak"/>
+                <constraint firstItem="pHk-Gi-O33" firstAttribute="trailing" secondItem="e0I-aq-a9f" secondAttribute="trailing" id="PZn-wC-E0m"/>
+                <constraint firstItem="MZG-fg-VSH" firstAttribute="bottom" secondItem="e0I-aq-a9f" secondAttribute="bottom" id="SUY-64-HS2"/>
+                <constraint firstItem="CiG-1G-vP2" firstAttribute="top" secondItem="MZG-fg-VSH" secondAttribute="top" id="WWW-S2-MWf"/>
+                <constraint firstItem="bvP-oy-p1F" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="blG-pZ-pE9"/>
+                <constraint firstItem="e0I-aq-a9f" firstAttribute="top" secondItem="bvP-oy-p1F" secondAttribute="bottom" constant="32" id="eEO-ke-6I4"/>
+                <constraint firstItem="MZG-fg-VSH" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="hSz-Tj-HPi"/>
+                <constraint firstItem="bvP-oy-p1F" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="lAM-an-ozQ"/>
+                <constraint firstItem="pHk-Gi-O33" firstAttribute="baseline" secondItem="CiG-1G-vP2" secondAttribute="baseline" id="ltt-Mh-jxm"/>
+                <constraint firstItem="CiG-1G-vP2" firstAttribute="firstBaseline" secondItem="pHk-Gi-O33" secondAttribute="firstBaseline" id="mAO-xu-orc"/>
+                <constraint firstItem="e0I-aq-a9f" firstAttribute="leading" secondItem="CiG-1G-vP2" secondAttribute="leading" id="tH0-ic-8sR"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="dateLabel" destination="e0I-aq-a9f" id="DcI-cZ-Duu"/>
+                <outlet property="headImage" destination="MZG-fg-VSH" id="3BR-BS-j9t"/>
+                <outlet property="nameLabel" destination="CiG-1G-vP2" id="EOd-55-TDY"/>
+                <outlet property="titleLabel" destination="bvP-oy-p1F" id="qGA-iN-xwM"/>
+            </connections>
+            <point key="canvasLocation" x="351" y="90"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="head" width="288" height="290"/>
+    </resources>
+</document>

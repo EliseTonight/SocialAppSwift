@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="KGk-i7-Jjw" customClass="CommentCell" customModule="IMxyb" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9小时前" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiP-uD-C2c">
+                        <rect key="frame" x="192" y="8" width="80" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="Zp5-Ai-mqh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FxK-fN-6BP">
+                        <rect key="frame" x="66" y="37" width="246" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="R6z-Ld-eht"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w7h-jg-0xz">
+                        <rect key="frame" x="280" y="8" width="32" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="He9-sk-mHd"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="hd_ictab_misc"/>
+                        <connections>
+                            <action selector="commentButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZlL-ss-ey3"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pav-4k-WXS">
+                        <rect key="frame" x="66" y="79" width="254" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FurElise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q9z-B5-MLA">
+                        <rect key="frame" x="66" y="8" width="118" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="qTN-2U-YfQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head" translatesAutoresizingMaskIntoConstraints="NO" id="DXh-my-p7P" customClass="CornerImageView" customModule="IMxyb" customModuleProvider="target">
+                        <rect key="frame" x="8" y="8" width="40" height="40"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Pav-4k-WXS" firstAttribute="leading" secondItem="FxK-fN-6BP" secondAttribute="leading" id="1GZ-RQ-vdQ"/>
+                    <constraint firstItem="w7h-jg-0xz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="3RU-Pe-oUP"/>
+                    <constraint firstItem="Pav-4k-WXS" firstAttribute="top" secondItem="FxK-fN-6BP" secondAttribute="bottom" id="3eh-rc-gDB"/>
+                    <constraint firstItem="DXh-my-p7P" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="69b-kf-lbs"/>
+                    <constraint firstItem="DXh-my-p7P" firstAttribute="top" secondItem="Q9z-B5-MLA" secondAttribute="top" id="Hia-GS-Uh4"/>
+                    <constraint firstItem="FxK-fN-6BP" firstAttribute="trailing" secondItem="w7h-jg-0xz" secondAttribute="trailing" id="IgS-fQ-0Zv"/>
+                    <constraint firstItem="w7h-jg-0xz" firstAttribute="top" secondItem="CiP-uD-C2c" secondAttribute="top" id="IvI-2G-JKT"/>
+                    <constraint firstItem="Q9z-B5-MLA" firstAttribute="leading" secondItem="FxK-fN-6BP" secondAttribute="leading" id="J1M-At-AfO"/>
+                    <constraint firstItem="FxK-fN-6BP" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="MUJ-Fk-3Dj"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="DXh-my-p7P" secondAttribute="bottom" constant="23.5" id="OTC-t2-HNR"/>
+                    <constraint firstItem="FxK-fN-6BP" firstAttribute="top" secondItem="Q9z-B5-MLA" secondAttribute="bottom" constant="8" symbolic="YES" id="PMj-41-ERO"/>
+                    <constraint firstItem="Q9z-B5-MLA" firstAttribute="leading" secondItem="DXh-my-p7P" secondAttribute="trailing" constant="18" id="UZ2-2q-03C"/>
+                    <constraint firstItem="w7h-jg-0xz" firstAttribute="leading" secondItem="CiP-uD-C2c" secondAttribute="trailing" constant="8" symbolic="YES" id="Y2m-ET-wQl"/>
+                    <constraint firstItem="CiP-uD-C2c" firstAttribute="leading" secondItem="Q9z-B5-MLA" secondAttribute="trailing" constant="8" symbolic="YES" id="etU-7J-1XA"/>
+                    <constraint firstItem="FxK-fN-6BP" firstAttribute="top" secondItem="CiP-uD-C2c" secondAttribute="bottom" constant="8" symbolic="YES" id="ffJ-vk-86a"/>
+                    <constraint firstAttribute="trailing" secondItem="Pav-4k-WXS" secondAttribute="trailing" id="kjz-Sq-4Bd"/>
+                    <constraint firstItem="FxK-fN-6BP" firstAttribute="top" secondItem="w7h-jg-0xz" secondAttribute="bottom" constant="8" symbolic="YES" id="qB4-c9-t6a"/>
+                    <constraint firstItem="Pav-4k-WXS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="58" id="qsg-ty-fg3"/>
+                    <constraint firstItem="CiP-uD-C2c" firstAttribute="top" secondItem="Q9z-B5-MLA" secondAttribute="top" id="t5h-N6-4OZ"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Pav-4k-WXS" secondAttribute="bottom" constant="-8.5" id="vuq-Nl-Xiq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="commentButton" destination="w7h-jg-0xz" id="wcC-D3-t99"/>
+                <outlet property="contentLabel" destination="FxK-fN-6BP" id="ACO-u2-OM8"/>
+                <outlet property="headImage" destination="DXh-my-p7P" id="Uif-34-Brx"/>
+                <outlet property="nameLabel" destination="Q9z-B5-MLA" id="SJU-65-ItU"/>
+                <outlet property="timeLabel" destination="CiP-uD-C2c" id="Fbz-F3-hyp"/>
+            </connections>
+            <point key="canvasLocation" x="351" y="270"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="hd_ictab_misc" width="50" height="50"/>
+        <image name="head" width="288" height="290"/>
+    </resources>
+</document>
