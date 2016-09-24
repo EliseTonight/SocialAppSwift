@@ -20,7 +20,7 @@ class CutomFontCell: UITableViewCell {
     
     var model:EnthusModel? {
         didSet {
-            self.headImageView.sd_setImageWithURL(NSURL(string: (model?.avatar)!), placeholderImage: UIImage(named: "logo_s"))
+            self.headImageView.sd_setImage(with: URL(string: (model?.avatar)!), placeholderImage: UIImage(named: "logo_s"))
             self.nameLabel.text = model?.name
             self.typeLabel.text = model?.type
             self.titleLabel.text = model?.title
@@ -42,11 +42,11 @@ class CutomFontCell: UITableViewCell {
         }
     }
     
-    class func cutomFontCellWithXib(tableView:UITableView) -> CutomFontCell {
+    class func cutomFontCellWithXib(_ tableView:UITableView) -> CutomFontCell {
         let cellId = "cutomFontCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? CutomFontCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? CutomFontCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("CutomFontCell", owner: nil, options: nil).last as? CutomFontCell
+            cell = Bundle.main.loadNibNamed("CutomFontCell", owner: nil, options: nil)?.last as? CutomFontCell
         }
         return cell!
     }
@@ -55,11 +55,11 @@ class CutomFontCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

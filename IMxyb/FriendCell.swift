@@ -34,11 +34,11 @@ class FriendCell: UITableViewCell {
     
     
     
-    class func friendCellFromXib(tableView:UITableView) -> FriendCell {
+    class func friendCellFromXib(_ tableView:UITableView) -> FriendCell {
         let id = "friendCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(id) as? FriendCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: id) as? FriendCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("FriendCell", owner: nil, options: nil).last as? FriendCell
+            cell = Bundle.main.loadNibNamed("FriendCell", owner: nil, options: nil)?.last as? FriendCell
         }
         return cell!
     }
@@ -48,11 +48,11 @@ class FriendCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

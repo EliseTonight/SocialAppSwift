@@ -9,14 +9,14 @@
 import Foundation
 
 extension UIView {
-    func setViewTap(action:Selector,controller:UIViewController) {
+    func setViewTap(_ action:Selector,controller:UIViewController) {
         let tap = UITapGestureRecognizer(target: controller, action: action)
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tap)
     }
-    func setViewTap(action:Selector) {
+    func setViewTap(_ action:Selector) {
         let tap = UITapGestureRecognizer(target: self, action: action)
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tap)
     }
 }

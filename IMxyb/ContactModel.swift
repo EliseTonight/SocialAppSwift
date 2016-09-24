@@ -27,7 +27,7 @@ class ContactModels:NSObject {
     ///所有通讯录人
     var contacts:[ContactModel] = []
     
-    func initMemberWithNum(num:Int) {
+    func initMemberWithNum(_ num:Int) {
         
         let firstNames = ["赵","钱","孙","李","周","吴","郑","王","冯","陈","楚","卫","蒋","沈","韩","杨","徐","马","张","言","梅","虞","习","江","朱","任","陆","艾","柏","毕","白","孔","欧"]
         let secondNames = ["大","美","帅","应","超","海","江","湖","春","夏","秋","冬","上","左","有","纯","希","霖","泽","莉"]

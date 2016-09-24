@@ -20,7 +20,7 @@ class PopViewController: UIViewController {
     
     
     
-    @objc private func QRCodeViewClick() {
+    @objc fileprivate func QRCodeViewClick() {
         self.openCamera()
     }
     
@@ -29,14 +29,14 @@ class PopViewController: UIViewController {
     
     
     //imagehuoqu
-    private lazy var pickVC: UIImagePickerController = {
+    fileprivate lazy var pickVC: UIImagePickerController = {
         let pickVC = UIImagePickerController()
         pickVC.delegate = self
         pickVC.allowsEditing = true
         return pickVC
     }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "PopViewController", bundle: nil)
     }
 
@@ -69,12 +69,12 @@ class PopViewController: UIViewController {
 extension PopViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     /// 打开照相功能
-    private func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            pickVC.sourceType = .Camera
-            self.presentViewController(pickVC, animated: true, completion: nil)
+    fileprivate func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            pickVC.sourceType = .camera
+            self.present(pickVC, animated: true, completion: nil)
         } else {
-            SVProgressHUD.showErrorWithStatus("模拟器没有摄像头,请链接真机调试", maskType: SVProgressHUDMaskType.Black)
+            SVProgressHUD.showError(withStatus: "模拟器没有摄像头,请链接真机调试", maskType: SVProgressHUDMaskType.black)
             
         }
     }

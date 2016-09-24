@@ -21,17 +21,17 @@ class ContactCell: UITableViewCell {
         }
     }
     
-    private var headImageView = UIImageView()
-    private var nameLabel = UILabel()
+    fileprivate var headImageView = UIImageView()
+    fileprivate var nameLabel = UILabel()
     
-    private func setupView() {
+    fileprivate func setupView() {
         self.contentView.sd_layout().spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0))
         self.frame.size.width = 375
         
         self.contentView.addSubview(headImageView)
         
-        nameLabel.textColor = UIColor.darkGrayColor()
-        nameLabel.font = UIFont.systemFontOfSize(15)
+        nameLabel.textColor = UIColor.darkGray
+        nameLabel.font = UIFont.systemFont(ofSize: 15)
         self.contentView.addSubview(nameLabel)
         
         
@@ -39,15 +39,15 @@ class ContactCell: UITableViewCell {
         
         
         headImageView.sd_layout()
-            .leftSpaceToView(self.contentView, margin)
-            .widthIs(35)
-            .heightEqualToWidth()
+            .leftSpaceToView(self.contentView, margin)?
+            .widthIs(35)?
+            .heightEqualToWidth()?
             .centerYEqualToView(self.contentView);
         
         nameLabel.sd_layout()
-            .leftSpaceToView(headImageView, margin)
-            .centerYEqualToView(headImageView)
-            .rightSpaceToView(self.contentView, margin)
+            .leftSpaceToView(headImageView, margin)?
+            .centerYEqualToView(headImageView)?
+            .rightSpaceToView(self.contentView, margin)?
             .heightIs(30);
         
         
@@ -69,11 +69,11 @@ class ContactCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

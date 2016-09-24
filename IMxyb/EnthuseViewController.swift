@@ -12,11 +12,11 @@ class EnthuseViewController: UIViewController{
 
     
     //存储留言
-    private var commentViews:[SingleCommentView?] = []
+    fileprivate var commentViews:[SingleCommentView?] = []
     //最底部button
-    private var moreCommentButton:MoreCommentButton?
+    fileprivate var moreCommentButton:MoreCommentButton?
     //最终webView长度
-    private var finalWebHeight:CGFloat = 0
+    fileprivate var finalWebHeight:CGFloat = 0
     
     var model:CustomCellModel? {
         didSet {
@@ -32,7 +32,7 @@ class EnthuseViewController: UIViewController{
                 for i in 0..<num! {
                     if i < 2 {
                         let view = SingleCommentView.singleCommentView(CGRect(x: 0, y: (mainWebView?.scrollView.contentSize.height)!, width: AppWidth, height: 100))
-                        view.hidden = true
+                        view.isHidden = true
                         view.model = model?.comment![i]
                         self.commentViews.append(view)
                         mainWebView?.scrollView.addSubview(view)
@@ -41,32 +41,32 @@ class EnthuseViewController: UIViewController{
             }
             //添加最后de button
             weak var selfRef = self
-            self.moreCommentButton = MoreCommentButton.moreCommentButtonFromXib(CGRectMake(0, (mainWebView?.scrollView.contentSize.height)!, AppWidth, 0))
-            self.moreCommentButton?.hidden = true
+            self.moreCommentButton = MoreCommentButton.moreCommentButtonFromXib(CGRect(x: 0, y: (mainWebView?.scrollView.contentSize.height)!, width: AppWidth, height: 0))
+            self.moreCommentButton?.isHidden = true
             self.moreCommentButton?.delegate = selfRef
             self.mainWebView?.scrollView.addSubview(moreCommentButton!)
             loadImageView?.endLoad()
             loadImageView?.removeFromSuperview()
         }
     }
-    private var loadImageView:LoadAnimationView?
+    fileprivate var loadImageView:LoadAnimationView?
     //头部button
-    private var backButton = UIButton()
-    private var likeButton = UIButton()
-    private var shareButton = UIButton()
-    private var commentButton = UIButton()
+    fileprivate var backButton = UIButton()
+    fileprivate var likeButton = UIButton()
+    fileprivate var shareButton = UIButton()
+    fileprivate var commentButton = UIButton()
     //承载View
-    private lazy var mainScrollView:UIScrollView? = {
+    fileprivate lazy var mainScrollView:UIScrollView? = {
         let mainScrollView = UIScrollView(frame: CGRect(x: 0, y: NavigationHeight, width: AppWidth, height: AppHeight - NavigationHeight))
         return mainScrollView
     }()
     //webView头部
-    private lazy var headWebView:HeadView? = {
+    fileprivate lazy var headWebView:HeadView? = {
         let headWebView = HeadView.headViewWithXib(CGRect(x: 0, y: -120, width: AppWidth, height: 120))
         return headWebView
     }()
     //内容
-    private lazy var mainWebView:UIWebView? = {
+    fileprivate lazy var mainWebView:UIWebView? = {
         var webView = UIWebView(frame: CGRect(x: 0, y: NavigationHeight, width: AppWidth, height: AppHeight - NavigationHeight))
         webView.scrollView.contentInset = UIEdgeInsets(top: 120, left: 0, bottom: 0, right: 0)
         webView.scrollView.setContentOffset(CGPoint(x: 0, y: -120), animated: false)
@@ -75,24 +75,24 @@ class EnthuseViewController: UIViewController{
         return webView
     }()
     //shareView
-    private lazy var shareView:ShareView? = {
+    fileprivate lazy var shareView:ShareView? = {
         var shareView = ShareView.shareViewWithXib()
         return shareView
     }()
     //留言页面
-    private lazy var commentMainView:CommentViewController? = {
+    fileprivate lazy var commentMainView:CommentViewController? = {
         var commentMainView = CommentViewController()
         return commentMainView
     }()
     //渐变Navigation
-    private lazy var navigationCustom:UIView? = {
+    fileprivate lazy var navigationCustom:UIView? = {
         let navigationCustom = UIView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: NavigationHeight))
-        navigationCustom.backgroundColor = UIColor.whiteColor()
+        navigationCustom.backgroundColor = UIColor.white
         navigationCustom.alpha = 0.8
         return navigationCustom
     }()
     //设置内容
-    private func setContent() {
+    fileprivate func setContent() {
 //        self.view.addSubview(mainScrollView!)
 //        mainScrollView?.addSubview(headWebView!)
 //        mainScrollView?.addSubview(mainWebView!)
@@ -103,25 +103,25 @@ class EnthuseViewController: UIViewController{
         headWebView?.model = self.model
     }
     //设置头部
-    private func setNavigation() {
+    fileprivate func setNavigation() {
         self.view.addSubview(navigationCustom!)
-        self.setButton(backButton, frame: CGRectMake(-7, 20, 44, 44), image: "back_1", highImage: "back_2", selectedImage: nil, action: "backButtonClick:")
-        self.setButton(commentButton, frame: CGRectMake(AppWidth - 166, 20, 64, 44), image: "item-btn-comment-black-act", highImage: "item-btn-comment-black-act", selectedImage: nil, action: "commentButtonClick:")
-        self.setButton(likeButton, frame: CGRectMake(AppWidth - 105, 20, 44, 44), image: "collect_1", highImage: "collect_0", selectedImage: "collect_2", action: "likeButtonClick:")
-        self.setButton(shareButton, frame: CGRectMake(AppWidth - 54, 20, 44, 44), image: "share_1", highImage: "share_2", selectedImage: nil, action: "shareButtonClick:")
+        self.setButton(backButton, frame: CGRect(x: -7, y: 20, width: 44, height: 44), image: "back_1", highImage: "back_2", selectedImage: nil, action: "backButtonClick:")
+        self.setButton(commentButton, frame: CGRect(x: AppWidth - 166, y: 20, width: 64, height: 44), image: "item-btn-comment-black-act", highImage: "item-btn-comment-black-act", selectedImage: nil, action: "commentButtonClick:")
+        self.setButton(likeButton, frame: CGRect(x: AppWidth - 105, y: 20, width: 44, height: 44), image: "collect_1", highImage: "collect_0", selectedImage: "collect_2", action: "likeButtonClick:")
+        self.setButton(shareButton, frame: CGRect(x: AppWidth - 54, y: 20, width: 44, height: 44), image: "share_1", highImage: "share_2", selectedImage: nil, action: "shareButtonClick:")
     }
     //buttonClick模块
-    @objc private func shareButtonClick(sender:UIButton) {
+    @objc fileprivate func shareButtonClick(_ sender:UIButton) {
         self.view.addSubview(shareView!)
-        self.shareView!.showShareView(CGRectMake(0, AppHeight - 155, AppWidth, 155))
+        self.shareView!.showShareView(CGRect(x: 0, y: AppHeight - 155, width: AppWidth, height: 155))
     }
-    @objc private func likeButtonClick(sender:UIButton) {
-        sender.selected = !sender.selected
+    @objc fileprivate func likeButtonClick(_ sender:UIButton) {
+        sender.isSelected = !sender.isSelected
     }
-    @objc private func backButtonClick(sender:UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @objc fileprivate func backButtonClick(_ sender:UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
-    @objc private func commentButtonClick(sender:UIButton) {
+    @objc fileprivate func commentButtonClick(_ sender:UIButton) {
         commentMainView?.model = self.model?.comment
         self.navigationController?.pushViewController(commentMainView!, animated: true)
     }
@@ -139,13 +139,13 @@ class EnthuseViewController: UIViewController{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.mainWebView?.scrollView.contentSize.height = finalWebHeight
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 //        self.navigationController?.setToolbarHidden(false, animated: true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -164,23 +164,23 @@ class EnthuseViewController: UIViewController{
 }
 extension EnthuseViewController:UIWebViewDelegate {
     //在WebView加载之后添加头部与结尾回复，布局
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         webView.scrollView.showsHorizontalScrollIndicator = false
         for view in commentViews {
-            view?.frame = CGRectMake(0,webView.scrollView.contentSize.height, AppWidth, 100)
-            view?.hidden = false
+            view?.frame = CGRect(x: 0,y: webView.scrollView.contentSize.height, width: AppWidth, height: 100)
+            view?.isHidden = false
             webView.scrollView.contentSize.height += 100
         }
         
-        self.moreCommentButton?.frame = CGRectMake(0, webView.scrollView.contentSize.height, AppWidth, 80)
-        self.moreCommentButton?.hidden = false
+        self.moreCommentButton?.frame = CGRect(x: 0, y: webView.scrollView.contentSize.height, width: AppWidth, height: 80)
+        self.moreCommentButton?.isHidden = false
         webView.scrollView.contentSize.height += 80
         finalWebHeight = webView.scrollView.contentSize.height
     }
 }
 extension EnthuseViewController:MoreCommentButtonDelegate {
     //即进入全部回复页面
-    func moreCommentButton(sender: UIButton) {
+    func moreCommentButton(_ sender: UIButton) {
         commentMainView?.model = self.model?.comment
         self.navigationController?.pushViewController(commentMainView!, animated: true)
     }

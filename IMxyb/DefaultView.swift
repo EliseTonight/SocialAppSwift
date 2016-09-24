@@ -12,7 +12,7 @@ class DefaultView: UIView {
     @IBOutlet weak var backImage: UIImageView! {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: "changeToMeView")
-            backImage.userInteractionEnabled = true
+            backImage.isUserInteractionEnabled = true
             backImage.addGestureRecognizer(tap)
         }
     }
@@ -21,14 +21,14 @@ class DefaultView: UIView {
     @IBOutlet weak var backImage2: UIImageView! {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: "changeToMeView")
-            backImage2.userInteractionEnabled = true
+            backImage2.isUserInteractionEnabled = true
             backImage2.addGestureRecognizer(tap)
         }
     }
     
     var delegate:DefaultViewDelegate?
     
-    @objc private func changeToMeView() {
+    @objc fileprivate func changeToMeView() {
         delegate?.defaultViewTapDelegate()
     }
     
@@ -45,7 +45,7 @@ class DefaultView: UIView {
     
     
     class func defaultViewFromXib() -> DefaultView {
-        let view = NSBundle.mainBundle().loadNibNamed("DefaultView", owner: nil, options: nil).last as? DefaultView
+        let view = Bundle.main.loadNibNamed("DefaultView", owner: nil, options: nil)?.last as? DefaultView
         return view!
     }
     /*

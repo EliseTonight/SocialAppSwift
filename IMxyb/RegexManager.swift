@@ -7,22 +7,42 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 //正则表达式自定义工具
-public class RegExManager {
+open class RegExManager {
     
-    private static let instance = RegExManager()
+    fileprivate static let instance = RegExManager()
     /// 全局统一访问入口
-    public class var sharedManager: RegExManager {
+    open class var sharedManager: RegExManager {
         return instance
     }
     ///需要匹配的数据与匹配表达式
-    public func getResultWithRegExStr(input:String?,pattern:String) -> Bool {
+    open func getResultWithRegExStr(_ input:String?,pattern:String) -> Bool {
         
         let regex:NSRegularExpression?
-        regex = try? NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.CaseInsensitive)
-        let matchs = regex?.matchesInString(input!, options: [], range: NSMakeRange(0, input!.characters.count))
+        regex = try? NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
+        let matchs = regex?.matches(in: input!, options: [], range: NSMakeRange(0, input!.characters.count))
         return matchs?.count > 0
         
     }

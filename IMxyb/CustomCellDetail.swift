@@ -33,14 +33,14 @@ class CustomCellModel:NSObject ,DictModelProtocol{
     var avatar:String?
     
     
-    class func loadCustomCellModel(completion:(data:CustomCellModel?,error:NSError?) -> ()) {
-        let path = NSBundle.mainBundle().pathForResource("OneCellDetail", ofType: nil)
-        let data = NSData(contentsOfFile: path!)
+    class func loadCustomCellModel(_ completion:(_ data:CustomCellModel?,_ error:NSError?) -> ()) {
+        let path = Bundle.main.path(forResource: "OneCellDetail", ofType: nil)
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         if data != nil {
-            let dict = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+            let dict = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? NSDictionary
             let tool = DictModelManager.sharedManager
             let object = tool.objectWithDictionary(dict!, cls: CustomCellModel.self) as? CustomCellModel
-            completion(data: object, error: nil)
+            completion(object, nil)
         }
     }
     static func customClassMapping() -> [String : String]? {

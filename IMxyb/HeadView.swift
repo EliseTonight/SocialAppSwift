@@ -20,7 +20,7 @@ class HeadView: UIView {
     var model:CustomCellModel? {
         didSet {
             self.titleLabel.text = model?.title
-            self.headImage.sd_setImageWithURL(NSURL(string: (model?.avatar!)!)!, placeholderImage: UIImage(named: "logo_s"))
+            self.headImage.sd_setImage(with: URL(string: (model?.avatar!)!)!, placeholderImage: UIImage(named: "logo_s"))
             self.nameLabel.text = model?.name
         }
     }
@@ -28,8 +28,8 @@ class HeadView: UIView {
     
     
     
-    class func headViewWithXib(frame:CGRect) -> HeadView {
-        let view = NSBundle.mainBundle().loadNibNamed("HeadView", owner: nil, options: nil).last as? HeadView
+    class func headViewWithXib(_ frame:CGRect) -> HeadView {
+        let view = Bundle.main.loadNibNamed("HeadView", owner: nil, options: nil)?.last as? HeadView
         view?.frame = frame
         return view!
     }

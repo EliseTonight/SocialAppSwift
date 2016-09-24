@@ -35,8 +35,8 @@ class AnotherInfoTopView: UIView {
     
     
     
-    class func anotherInfoTopViewFromXib(frame:CGRect) -> AnotherInfoTopView {
-        let view = NSBundle.mainBundle().loadNibNamed("AnotherInfoTopView", owner: nil, options: nil).last as? AnotherInfoTopView
+    class func anotherInfoTopViewFromXib(_ frame:CGRect) -> AnotherInfoTopView {
+        let view = Bundle.main.loadNibNamed("AnotherInfoTopView", owner: nil, options: nil)?.last as? AnotherInfoTopView
         view?.frame = frame
         return view!
     }

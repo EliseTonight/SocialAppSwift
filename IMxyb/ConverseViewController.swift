@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 public let ConversationCellId = "ConCell"
 public let MessageChangeNotification = "MessageChangeNotification"
@@ -18,7 +38,7 @@ class ConverseViewController: UIViewController {
         self.model = model
     }
     
-    private var finalHeight:CGFloat = 0
+    fileprivate var finalHeight:CGFloat = 0
     //所有消息模型
     var model:MessageModel? {
         didSet {
@@ -54,28 +74,28 @@ class ConverseViewController: UIViewController {
     
     
     //设置底部
-    private var bottomView = WriteView.writeViewFromXib(CGRectMake(0, AppHeight - 40, AppWidth, 40))
-    private func setBottom() {
+    fileprivate var bottomView = WriteView.writeViewFromXib(CGRect(x: 0, y: AppHeight - 40, width: AppWidth, height: 40))
+    fileprivate func setBottom() {
         weak var selfRef = self
         bottomView.alpha = 1.0
         bottomView.delegate = selfRef
         self.view.addSubview(bottomView)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ConverseViewController.keyboardWillChangeFrame(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     //编辑开始与编辑结束，变化view的位置，添加监听器
-    @objc private func keyboardWillChangeFrame(notify:NSNotification) {
-        let info = notify.userInfo
+    @objc fileprivate func keyboardWillChangeFrame(_ notify:Notification) {
+        let info = (notify as NSNotification).userInfo
         let durationTime:Double = info![UIKeyboardAnimationDurationUserInfoKey] as! Double
-        let keyboardEndFrame:CGRect = info![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
-        let getMinY = CGRectGetMinY(keyboardEndFrame)
+        let keyboardEndFrame:CGRect = (info![UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
+        let getMinY = keyboardEndFrame.minY
 //        self.keyboardBackView?.hidden = !self.keyboardBackView!.hidden
-        UIView.animateWithDuration(durationTime) { () -> Void in
+        UIView.animate(withDuration: durationTime, animations: { () -> Void in
             //变化tableView的包含位置与键盘的
-            self.bottomView.frame = CGRectMake(0, getMinY - 40, AppWidth, 40)
+            self.bottomView.frame = CGRect(x: 0, y: getMinY - 40, width: AppWidth, height: 40)
             let currentMaxY = (self.mainTableView?.contentOffset.y)!
-            let minY = CGRectGetMinY(self.bottomView.frame)
+            let minY = self.bottomView.frame.minY
 //            self.mainTableView?.setContentOffset(CGPoint(x: 0, y: currentMaxY + lineY), animated: true)
-        }
+        }) 
     }
 //    //收回keyboard的背景覆盖view
 //    private lazy var keyboardBackView:UIView? = {
@@ -88,65 +108,65 @@ class ConverseViewController: UIViewController {
 //        view.hidden = true
 //        return view
 //    }()
-    private func setCancelEdit() {
-        let tap = UITapGestureRecognizer(target: self, action: "cancelEdit")
+    fileprivate func setCancelEdit() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ConverseViewController.cancelEdit))
         self.mainTableView?.addGestureRecognizer(tap)
-        self.mainTableView?.userInteractionEnabled = true
+        self.mainTableView?.isUserInteractionEnabled = true
     }
-    @objc private func cancelEdit() {
+    @objc fileprivate func cancelEdit() {
         self.view.endEditing(true)
     }
 
     //主要的tableview
-    private lazy var mainTableView:UITableView? = {
-        let mainTableView = UITableView(frame: CGRectMake(0, NavigationHeight, AppWidth, AppHeight - NavigationHeight - 40), style: UITableViewStyle.Plain)
-        mainTableView.separatorStyle = .None
-        mainTableView.backgroundColor = UIColor.whiteColor()
+    fileprivate lazy var mainTableView:UITableView? = {
+        let mainTableView = UITableView(frame: CGRect(x: 0, y: NavigationHeight, width: AppWidth, height: AppHeight - NavigationHeight - 40), style: UITableViewStyle.plain)
+        mainTableView.separatorStyle = .none
+        mainTableView.backgroundColor = UIColor.white
         return mainTableView
     }()
     
-    private func setMainTableView() {
+    fileprivate func setMainTableView() {
         self.mainTableView?.delegate = self
         self.mainTableView?.dataSource = self
         self.view.addSubview(mainTableView!)
     }
     //设置导航栏标题大小
-    private var labelView = UILabel()
-    private var backButton = UIButton()
-    private var infoDetailButton = UIButton()
-    private var blackLine = UIView()
-    private lazy var navigationCustom:UIView? = {
+    fileprivate var labelView = UILabel()
+    fileprivate var backButton = UIButton()
+    fileprivate var infoDetailButton = UIButton()
+    fileprivate var blackLine = UIView()
+    fileprivate lazy var navigationCustom:UIView? = {
         let navigationCustom = UIView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: NavigationHeight))
-        navigationCustom.backgroundColor = UIColor.whiteColor()
+        navigationCustom.backgroundColor = UIColor.white
         navigationCustom.alpha = 1
         return navigationCustom
     }()
-    private lazy var anotherVC:AnotherInfoViewController? = {
+    fileprivate lazy var anotherVC:AnotherInfoViewController? = {
         let anotherVC = AnotherInfoViewController()
         return anotherVC
     }()
     //设置头部
-    private func setNavigation() {
+    fileprivate func setNavigation() {
         self.view.addSubview(navigationCustom!)
-        self.setButton(backButton, frame: CGRectMake(-7, 20, 44, 44), image: "back_1", highImage: "back_2", selectedImage: nil, action: "backButtonClick")
-        self.setButton(infoDetailButton, frame: CGRectMake(AppWidth - 54, 20, 44, 44), image: "list_1", highImage: "list_1", selectedImage: nil, action: "infoDetailButtonClick")
+        self.setButton(backButton, frame: CGRect(x: -7, y: 20, width: 44, height: 44), image: "back_1", highImage: "back_2", selectedImage: nil, action: #selector(ConverseViewController.backButtonClick))
+        self.setButton(infoDetailButton, frame: CGRect(x: AppWidth - 54, y: 20, width: 44, height: 44), image: "list_1", highImage: "list_1", selectedImage: nil, action: #selector(ConverseViewController.infoDetailButtonClick))
         self.labelView.text = self.model?.youName
-        self.labelView.frame = CGRectMake((AppWidth / 2) - 60, 20, 120, 44)
-        self.labelView.font = UIFont.systemFontOfSize(16)
+        self.labelView.frame = CGRect(x: (AppWidth / 2) - 60, y: 20, width: 120, height: 44)
+        self.labelView.font = UIFont.systemFont(ofSize: 16)
         self.labelView.adjustsFontSizeToFitWidth = true
-        self.labelView.textAlignment = .Center
+        self.labelView.textAlignment = .center
         self.view.addSubview(labelView)
-        self.blackLine.backgroundColor = UIColor.grayColor()
+        self.blackLine.backgroundColor = UIColor.gray
         self.blackLine.frame = CGRect(x: 0, y: NavigationHeight - 0.5, width: AppWidth, height: 0.5)
         self.navigationCustom!.addSubview(blackLine)
     }
-    @objc private func backButtonClick() {
-        self.navigationController?.popViewControllerAnimated(true)
+    @objc fileprivate func backButtonClick() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     
-    @objc private func infoDetailButtonClick() {
+    @objc fileprivate func infoDetailButtonClick() {
         anotherVC?.model = self.model
         anotherVC?.isCreateMessageAble = true
         self.navigationController?.pushViewController(anotherVC!, animated: true)
@@ -163,9 +183,9 @@ class ConverseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         setNavigation()
-        self.mainTableView?.registerClass(ConversationCell.self, forCellReuseIdentifier: ConversationCellId)
+        self.mainTableView?.register(ConversationCell.self, forCellReuseIdentifier: ConversationCellId)
 //        self.view.addSubview(keyboardBackView!)
         setMainTableView()
         setCancelEdit()
@@ -180,9 +200,9 @@ class ConverseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //                self.navigationController?.setToolbarHidden(true, animated: true)
 
@@ -206,7 +226,7 @@ class ConverseViewController: UIViewController {
 //        }
 
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.finalHeight = 0
         //        self.navigationController?.setToolbarHidden(false, animated: true)
@@ -224,7 +244,7 @@ class ConverseViewController: UIViewController {
 
 }
 extension ConverseViewController:UITableViewDataSource,UITableViewDelegate {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell?
 //        let singleModel = singleMessageModel()
 //        singleModel.icon = self.model?.icon
@@ -241,14 +261,14 @@ extension ConverseViewController:UITableViewDataSource,UITableViewDelegate {
 //            singleModel.type = 1
 //        }
 //        singleModel.message = [String](cellText!.values).first
-        cell = tableView.dequeueReusableCellWithIdentifier(ConversationCellId)
-        (cell as! ConversationCell).model = multiModel[indexPath.row]
-        (cell as! ConversationCell).setModel(multiModel[indexPath.row])
-        cell?.selectionStyle = .None
+        cell = tableView.dequeueReusableCell(withIdentifier: ConversationCellId)
+        (cell as! ConversationCell).model = multiModel[(indexPath as NSIndexPath).row]
+        (cell as! ConversationCell).setModel(multiModel[(indexPath as NSIndexPath).row])
+        cell?.selectionStyle = .none
         return cell!
         
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //判断tablecontentsize的高度来决定最终的显示位置
         //如果包含内容多于显示
         if tableView.contentSize.height > self.mainTableView?.frame.height {
@@ -260,10 +280,10 @@ extension ConverseViewController:UITableViewDataSource,UITableViewDelegate {
         }
         return self.multiModel.count ?? 0
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        
 //        let height:CGFloat = tableView.cellHeightForIndexPath(indexPath, model: multiModel[indexPath.row], keyPath: "model", cellClass: ConversationCell.self, contentViewWidth: AppWidth)
-        let height:CGFloat = tableView.cellHeightForIndexPath(indexPath, cellContentViewWidth: AppWidth, tableView: tableView)
+        let height:CGFloat = tableView.cellHeight(for: indexPath, cellContentViewWidth: AppWidth, tableView: tableView)
         return height
 
     }
@@ -273,15 +293,15 @@ extension ConverseViewController:UITableViewDataSource,UITableViewDelegate {
 ///编辑的代理
 extension ConverseViewController:WriteViewDelegate {
     //编辑结束
-    func writeViewShouldReturn(textField: UITextField) {
+    func writeViewShouldReturn(_ textField: UITextField) {
         let singleModel = singleMessageModel()
         singleModel.icon = self.model?.icon
         singleModel.myicon = (self.model?.myicon)!
         //获取当前时间
-        var date = NSDate()
-        var timeFormatter = NSDateFormatter()
+        let date = Date()
+        let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
-        var strNowTime = timeFormatter.stringFromDate(date) as String
+        let strNowTime = timeFormatter.string(from: date) as String
         singleModel.times = strNowTime
         singleModel.youName = self.model?.youName
         singleModel.type = 0
@@ -314,7 +334,7 @@ extension ConverseViewController:WriteViewDelegate {
             }
 //            print(transformModel.message)
         }
-        NSNotificationCenter.defaultCenter().postNotificationName(MessageChangeNotification, object: transformModel)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: MessageChangeNotification), object: transformModel)
     }
 }
 

@@ -21,7 +21,7 @@ class CustomCell: UITableViewCell {
     
     var model:EnthusModel? {
         didSet {
-            self.headImage.sd_setImageWithURL(NSURL(string: (model?.avatar)!), placeholderImage: UIImage(named: "logo_s"))
+            self.headImage.sd_setImage(with: URL(string: (model?.avatar)!), placeholderImage: UIImage(named: "logo_s"))
             self.nameLabel.text = model?.name
             self.enthuseTypeLabel.text = model?.type
             self.titleLabel.text = model?.title
@@ -38,7 +38,7 @@ class CustomCell: UITableViewCell {
                 self.likeNumLabel.text = model?.likers_count
             }
             //判断是否存在图片
-            self.rightView.sd_setImageWithURL(NSURL(string: (model?.cover_url)!), placeholderImage: UIImage(named: "quesheng"))
+            self.rightView.sd_setImage(with: URL(string: (model?.cover_url)!), placeholderImage: UIImage(named: "quesheng"))
         }
     }
     
@@ -49,11 +49,11 @@ class CustomCell: UITableViewCell {
     
     
     
-    class func customCellWithXib(tableView:UITableView) -> CustomCell {
+    class func customCellWithXib(_ tableView:UITableView) -> CustomCell {
         let id = "customCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(id) as? CustomCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: id) as? CustomCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("CustomCell", owner: nil, options: nil).last as? CustomCell
+            cell = Bundle.main.loadNibNamed("CustomCell", owner: nil, options: nil)?.last as? CustomCell
         }
         return cell!
     }
@@ -62,11 +62,11 @@ class CustomCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

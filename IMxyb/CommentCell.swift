@@ -20,7 +20,7 @@ class CommentCell: UITableViewCell {
     
     var model:CommentModel? {
         didSet {
-            self.headImage.sd_setImageWithURL(NSURL(string: (model?.head)!), placeholderImage: UIImage(named: "logo_s"))
+            self.headImage.sd_setImage(with: URL(string: (model?.head)!), placeholderImage: UIImage(named: "logo_s"))
             self.nameLabel.text = model?.name
             self.contentLabel.text = model?.text
         }
@@ -31,16 +31,16 @@ class CommentCell: UITableViewCell {
     
     
     
-    @IBAction func commentButtonClick(sender: UIButton) {
+    @IBAction func commentButtonClick(_ sender: UIButton) {
         
     }
     
     
-    class func commentCellWithXib(tableView:UITableView) -> CommentCell? {
+    class func commentCellWithXib(_ tableView:UITableView) -> CommentCell? {
         let cellId = "commentCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? CommentCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? CommentCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("CommentCell", owner: nil, options: nil).last as? CommentCell
+            cell = Bundle.main.loadNibNamed("CommentCell", owner: nil, options: nil)?.last as? CommentCell
         }
         return cell!
     }
@@ -52,11 +52,11 @@ class CommentCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

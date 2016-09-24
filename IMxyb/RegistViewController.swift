@@ -13,7 +13,7 @@ class RegistViewController: UIViewController {
     
     
     //loginView
-    private lazy var loginView:LoginViewController? = {
+    fileprivate lazy var loginView:LoginViewController? = {
         let loginView = LoginViewController()
         return loginView
     }()
@@ -21,52 +21,52 @@ class RegistViewController: UIViewController {
     
     
     //正则表达式单例
-    private var regExTools = RegExManager.sharedManager
-    private var patternModel = RegExStrList()
+    fileprivate var regExTools = RegExManager.sharedManager
+    fileprivate var patternModel = RegExStrList()
     //验证码发送键的确认
-    private var isAbleSend:Bool? {
+    fileprivate var isAbleSend:Bool? {
         get {
             return isPhoneAble! && isAbleCount && isPasswordAble!
         }
     }
     //注册确认
-    private var isAbleRegist: Bool? {
+    fileprivate var isAbleRegist: Bool? {
         get {
             return (isPhoneAble! && isPasswordAble! && isVerifyCodeAble!)
         }
     }
     //手机号是否可以
-    private var isPhoneAble:Bool?  {
+    fileprivate var isPhoneAble:Bool?  {
         get {
             return regExTools.getResultWithRegExStr(phoneTextFiled.text!, pattern: patternModel.regExPhoneStr)
         }
     }
     //密码是否可以
-    private var isPasswordAble:Bool? {
+    fileprivate var isPasswordAble:Bool? {
         get {
             return regExTools.getResultWithRegExStr(passwordTextFiled.text!, pattern: patternModel.regExPasswordStr)
         }
     }
     //验证码是否可以
-    private var isVerifyCodeAble:Bool? {
+    fileprivate var isVerifyCodeAble:Bool? {
         get {
             return regExTools.getResultWithRegExStr(verifyText.text!, pattern: patternModel.regExVerifyCodeStr)
         }
     }
     //计时是否可以
-    private var isAbleCount:Bool = true
+    fileprivate var isAbleCount:Bool = true
 
     
     //AutoCountButton
-    private var second = 60
-    private var timer:NSTimer?
+    fileprivate var second = 60
+    fileprivate var timer:Timer?
     
     
     
     @IBOutlet weak var backImageView: UIImageView! {
         didSet {
-            let tap = UITapGestureRecognizer(target: self, action: "backImageClick")
-            backImageView.userInteractionEnabled = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(RegistViewController.backImageClick))
+            backImageView.isUserInteractionEnabled = true
             backImageView.addGestureRecognizer(tap)
         }
     }
@@ -77,41 +77,41 @@ class RegistViewController: UIViewController {
     
     @IBOutlet weak var sendVerifyButton: UIButton! {
         didSet {
-            sendVerifyButton.enabled = false
-            sendVerifyButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
+            sendVerifyButton.isEnabled = false
+            sendVerifyButton.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         }
     }
     @IBOutlet weak var registButton: UIButton! {
         didSet {
-            registButton.enabled = false
-            registButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
+            registButton.isEnabled = false
+            registButton.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
 
         }
     }
     
     
-    @IBAction func sendVerifyButtonClick(sender: UIButton) {
+    @IBAction func sendVerifyButtonClick(_ sender: UIButton) {
         //发送
         if isAbleSend! {
             if !self.isPhoneHasEnrolled() {
                 self.isAbleCount = false
-                self.sendVerifyButton.enabled = self.isAbleSend!
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "sendVerifyButtonChange:", userInfo: nil, repeats: true)
+                self.sendVerifyButton.isEnabled = self.isAbleSend!
+                timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(RegistViewController.sendVerifyButtonChange(_:)), userInfo: nil, repeats: true)
                 let user = AVUser()
                 user.mobilePhoneNumber = self.phoneTextFiled.text!
                 user.password = self.passwordTextFiled.text
                 user.username = self.phoneTextFiled.text!
                 SVProgressHUD.show()
-                user.signUpInBackgroundWithBlock({ (succeed, error) -> Void in
+                user.signUpInBackground({ (succeed, error) -> Void in
                     if succeed {
-                        SVProgressHUD.showSuccessWithStatus("发送成功")
-                        dispatch_after(UInt64(1.5), dispatch_get_main_queue(), { () -> Void in
+                        SVProgressHUD.showSuccess(withStatus: "发送成功")
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64(1.5)), execute: { () -> Void in
                             SVProgressHUD.dismiss()
                         })
                     }
                     else {
-                        SVProgressHUD.showErrorWithStatus("发送失败")
-                        dispatch_after(UInt64(1.5), dispatch_get_main_queue(), { () -> Void in
+                        SVProgressHUD.showError(withStatus: "发送失败")
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64(1.5)), execute: { () -> Void in
                             SVProgressHUD.dismiss()
                         })
                     }
@@ -120,30 +120,30 @@ class RegistViewController: UIViewController {
         }
     }
     //手机号是否已注册
-    private func isPhoneHasEnrolled() -> Bool {
+    fileprivate func isPhoneHasEnrolled() -> Bool {
         let queryWithPhone = AVUser.query()
-        queryWithPhone.whereKey("mobilePhoneNumber", equalTo: phoneTextFiled.text)
-        if queryWithPhone.findObjects().count == 0 {
+        queryWithPhone?.whereKey("mobilePhoneNumber", equalTo: phoneTextFiled.text)
+        if queryWithPhone?.findObjects().count == 0 {
             return false
         }
         else {
-            SVProgressHUD.showErrorWithStatus("手机已经注册")
-            dispatch_after(UInt64(1.5), dispatch_get_main_queue(), { () -> Void in
+            SVProgressHUD.showError(withStatus: "手机已经注册")
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64(1.5)), execute: { () -> Void in
                 SVProgressHUD.dismiss()
             })
             return true
         }
     
     }
-    @objc private func sendVerifyButtonChange(timer:NSTimer) {
+    @objc fileprivate func sendVerifyButtonChange(_ timer:Timer) {
         let stringChange = "已发送\(second)"
         sendVerifyButton.titleLabel?.text = stringChange
-        sendVerifyButton.setTitle(stringChange, forState: .Normal)
+        sendVerifyButton.setTitle(stringChange, for: UIControlState())
         second -= 1
         if second == 0 {
             second = 60
             isAbleCount = true
-            sendVerifyButton.enabled = isAbleSend!
+            sendVerifyButton.isEnabled = isAbleSend!
             sendVerifyButton.titleLabel?.text = "发送验证码"
             timer.invalidate()
             self.timer = nil
@@ -151,27 +151,27 @@ class RegistViewController: UIViewController {
     }
     
 
-    @IBAction func backButtonClick(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonClick(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     //注册按钮
-    @IBAction func registButtonClick(sender: UIButton) {
+    @IBAction func registButtonClick(_ sender: UIButton) {
         AVUser.verifyMobilePhone(verifyText.text!) { (succeed, error) -> Void in
             if succeed {
-                SVProgressHUD.showSuccessWithStatus("注册成功")
-                self.navigationController?.popViewControllerAnimated(true)
+                SVProgressHUD.showSuccess(withStatus: "注册成功")
+                self.navigationController?.popViewController(animated: true)
             }
             else {
-                SVProgressHUD.showErrorWithStatus("注册失败")
-                dispatch_after(UInt64(1.5), dispatch_get_main_queue(), { () -> Void in
+                SVProgressHUD.showError(withStatus: "注册失败")
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: UInt64(1.5)), execute: { () -> Void in
                     SVProgressHUD.dismiss()
                 })
             }
         }
         
     }
-    private func appearAnimation() {
-        UIView.animateWithDuration(1.0) { () -> Void in
+    fileprivate func appearAnimation() {
+        UIView.animate(withDuration: 1.0, animations: { () -> Void in
             self.backImageView.alpha = 1.0
             self.backButton.alpha = 1.0
             self.phoneTextFiled.alpha = 1.0
@@ -179,10 +179,10 @@ class RegistViewController: UIViewController {
             self.verifyText.alpha = 1.0
             self.sendVerifyButton.alpha = 1.0
             self.registButton.alpha = 1.0
-        }
+        }) 
     }
-    private func disapperaAnimation() {
-        UIView.animateWithDuration(1.0) { () -> Void in
+    fileprivate func disapperaAnimation() {
+        UIView.animate(withDuration: 1.0, animations: { () -> Void in
             self.backImageView.alpha = 0.1
             self.backButton.alpha = 0.1
             self.phoneTextFiled.alpha = 0.1
@@ -191,17 +191,17 @@ class RegistViewController: UIViewController {
             self.sendVerifyButton.alpha = 0.1
             self.registButton.alpha = 0.1
 
-        }
+        }) 
     }
     //实时监测text的变化来确定bool值
-    private func textValueGuard() {
-        self.phoneTextFiled.addTarget(self, action: "textValueChange:", forControlEvents: UIControlEvents.EditingChanged)
-        self.passwordTextFiled.addTarget(self, action: "textValueChange:", forControlEvents: UIControlEvents.EditingChanged)
-        self.verifyText.addTarget(self, action: "textValueChange:", forControlEvents: UIControlEvents.EditingChanged)
+    fileprivate func textValueGuard() {
+        self.phoneTextFiled.addTarget(self, action: #selector(RegistViewController.textValueChange(_:)), for: UIControlEvents.editingChanged)
+        self.passwordTextFiled.addTarget(self, action: #selector(RegistViewController.textValueChange(_:)), for: UIControlEvents.editingChanged)
+        self.verifyText.addTarget(self, action: #selector(RegistViewController.textValueChange(_:)), for: UIControlEvents.editingChanged)
     }
-    @objc private func textValueChange(textField:KaedeTextField) {
-        self.sendVerifyButton.enabled = isAbleSend!
-        self.registButton.enabled = isAbleRegist!
+    @objc fileprivate func textValueChange(_ textField:KaedeTextField) {
+        self.sendVerifyButton.isEnabled = isAbleSend!
+        self.registButton.isEnabled = isAbleRegist!
     }
     
     
@@ -209,7 +209,7 @@ class RegistViewController: UIViewController {
         view.endEditing(true)
     }
     //清除打字内容
-    private func clearInput() {
+    fileprivate func clearInput() {
         self.phoneTextFiled.text = nil
         self.passwordTextFiled.text = nil
         self.verifyText.text = nil
@@ -217,12 +217,12 @@ class RegistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         textValueGuard()
 
         // Do any additional setup after loading the view.
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.phoneTextFiled.resignFirstResponder()
         self.passwordTextFiled.resignFirstResponder()
@@ -234,14 +234,14 @@ class RegistViewController: UIViewController {
         }
         self.isAbleCount = true
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.phoneTextFiled.resignFirstResponder()
         self.passwordTextFiled.resignFirstResponder()
         self.verifyText.resignFirstResponder()
         appearAnimation()
         clearInput()
-        self.sendVerifyButton.setTitle("发送验证码", forState: UIControlState.Normal)
+        self.sendVerifyButton.setTitle("发送验证码", for: UIControlState())
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 
@@ -249,7 +249,7 @@ class RegistViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.endEditing(false)
     }

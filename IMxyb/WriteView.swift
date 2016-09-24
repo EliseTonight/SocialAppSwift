@@ -9,7 +9,7 @@
 import UIKit
 
 class WriteView: UIView ,UITextFieldDelegate{
-    @IBAction func textExit(sender: UITextField) {
+    @IBAction func textExit(_ sender: UITextField) {
         if sender.text ==  nil {
             
         }
@@ -23,18 +23,18 @@ class WriteView: UIView ,UITextFieldDelegate{
     
     
     
-    @IBAction func textEnd(sender: UITextField) {
+    @IBAction func textEnd(_ sender: UITextField) {
         self.textFieldView.text = ""
         self.endEditing(true)
     }
 
     @IBOutlet weak var textFieldView: UITextField! {
         didSet {
-            textFieldView.returnKeyType = .Default
+            textFieldView.returnKeyType = .default
         
         }
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField === textFieldView {
             delegate?.writeViewShouldReturn(textFieldView)
             return true
@@ -50,8 +50,8 @@ class WriteView: UIView ,UITextFieldDelegate{
     
     
     
-    class func writeViewFromXib(frame:CGRect) -> WriteView {
-        let view = NSBundle.mainBundle().loadNibNamed("WriteView", owner: nil, options: nil).last as? WriteView
+    class func writeViewFromXib(_ frame:CGRect) -> WriteView {
+        let view = Bundle.main.loadNibNamed("WriteView", owner: nil, options: nil)?.last as? WriteView
         view?.frame = frame
         
         return view!
@@ -66,5 +66,5 @@ class WriteView: UIView ,UITextFieldDelegate{
 
 }
 protocol WriteViewDelegate {
-    func writeViewShouldReturn(textField:UITextField)
+    func writeViewShouldReturn(_ textField:UITextField)
 }

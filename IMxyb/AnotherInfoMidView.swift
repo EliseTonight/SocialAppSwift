@@ -45,18 +45,18 @@ class AnotherInfoMidView: UIView {
     weak var delegate:AnotherInfoMidViewDelegate?
     
     
-    @objc private func signViewClick() {
+    @objc fileprivate func signViewClick() {
 //        delegate?.signViewDelegate!()
     }
-    @objc private func proViewClick() {
+    @objc fileprivate func proViewClick() {
 //        delegate?.proViewDelegate!()
     }
 
-    @objc private func academyViewClick() {
+    @objc fileprivate func academyViewClick() {
 //        delegate?.academyViewDelegate!()
     }
 
-    @objc private func enthuseViewClick() {
+    @objc fileprivate func enthuseViewClick() {
 //        delegate?.enthusViewDelegate!()
     }
 
@@ -67,8 +67,8 @@ class AnotherInfoMidView: UIView {
     
     
     
-    class func anotherInfoMidViewFromXib(frame:CGRect) -> AnotherInfoMidView {
-        let view = NSBundle.mainBundle().loadNibNamed("AnotherInfoMidView", owner: nil, options: nil).last as? AnotherInfoMidView
+    class func anotherInfoMidViewFromXib(_ frame:CGRect) -> AnotherInfoMidView {
+        let view = Bundle.main.loadNibNamed("AnotherInfoMidView", owner: nil, options: nil)?.last as? AnotherInfoMidView
         view?.frame = frame
         return view!
     }
@@ -92,8 +92,8 @@ class AnotherInfoMidView: UIView {
 
 }
 @objc protocol AnotherInfoMidViewDelegate {
-    optional func signViewDelegate()
-    optional func proViewDelegate()
-    optional func academyViewDelegate()
-    optional func enthusViewDelegate()
+    @objc optional func signViewDelegate()
+    @objc optional func proViewDelegate()
+    @objc optional func academyViewDelegate()
+    @objc optional func enthusViewDelegate()
 }

@@ -33,7 +33,7 @@ class CornerImageView: UIImageView {
     }
     @IBInspectable var borderColor:UIColor? {
         didSet {
-            self.layer.borderColor = borderColor?.CGColor
+            self.layer.borderColor = borderColor?.cgColor
         }
     }
 //    convenience override init(image: UIImage?) {
@@ -47,10 +47,10 @@ class CornerImageView: UIImageView {
 //    
 }
 extension UIImage {
-    func scaleToFitBackgroundImageSize(fitSize:CGSize) -> UIImage{
+    func scaleToFitBackgroundImageSize(_ fitSize:CGSize) -> UIImage{
         UIGraphicsBeginImageContext(fitSize)
-        self.drawInRect(CGRectMake(0, 0, fitSize.width, fitSize.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        self.draw(in: CGRect(x: 0, y: 0, width: fitSize.width, height: fitSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return newImage
         

@@ -23,22 +23,22 @@ class InforViewController: UIViewController{
     @IBOutlet weak var signView: UIView!
     @IBOutlet weak var signLabel: UILabel!
     
-    private var iconView: IconView?
+    fileprivate var iconView: IconView?
     
-    private lazy var iconActionSheet: UIActionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照", "从手机相册选择")
+    fileprivate lazy var iconActionSheet: UIActionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照", "从手机相册选择")
     
     //imagehuoqu
-    private lazy var pickVC: UIImagePickerController = {
+    fileprivate lazy var pickVC: UIImagePickerController = {
         let pickVC = UIImagePickerController()
         pickVC.delegate = self
         pickVC.allowsEditing = true
         return pickVC
     }()
-    private lazy var meViewController:MeViewController? = {
+    fileprivate lazy var meViewController:MeViewController? = {
         let meViewController = MeViewController()
         return meViewController
     }()
-    private var userSave = currentUser()
+    fileprivate var userSave = currentUser()
     //根据手机（唯一key）信息初始化
     var model:String? {
         didSet {
@@ -49,7 +49,7 @@ class InforViewController: UIViewController{
     var id:String?
     
     //通过电话的设置来提取信息
-    private func selectedInforWithPhoneNumber() {
+    fileprivate func selectedInforWithPhoneNumber() {
 //        let query = AVQuery(className: "_User")
 //        query.whereKey("mobilePhoneNumber", equalTo: UserPhone)
 //        query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
@@ -78,39 +78,39 @@ class InforViewController: UIViewController{
     
     
     //注销
-    @IBAction func logoutButtonClick(sender: UIButton) {
+    @IBAction func logoutButtonClick(_ sender: UIButton) {
 //        AVUser.logOut()
         UserPhone = nil
         UserId = nil
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
 
 
     //设置所有View的target
-    private func setViewsTap() {
-        setViewTap(headView, action: "headViewClick")
-        setViewTap(nameView, action: "nameViewClick")
-        setViewTap(emailView, action: "emailViewClick")
-        setViewTap(signView, action: "signViewClick")
-        setViewTap(genderView, action: "genderViewClick")
+    fileprivate func setViewsTap() {
+        setViewTap(headView, action: #selector(InforViewController.headViewClick))
+        setViewTap(nameView, action: #selector(InforViewController.nameViewClick))
+        setViewTap(emailView, action: #selector(InforViewController.emailViewClick))
+        setViewTap(signView, action: #selector(InforViewController.signViewClick))
+        setViewTap(genderView, action: #selector(InforViewController.genderViewClick))
         
     }
     //设置单个View的target
-    private func setViewTap(view:UIView?,action:Selector) {
+    fileprivate func setViewTap(_ view:UIView?,action:Selector) {
         let tap = UITapGestureRecognizer(target: self, action: action)
-        view?.userInteractionEnabled = true
+        view?.isUserInteractionEnabled = true
         view?.addGestureRecognizer(tap)
     }
     //设置头部头像
-    @objc private func headViewClick() {
-        iconActionSheet.showInView(view)
+    @objc fileprivate func headViewClick() {
+        iconActionSheet.show(in: view)
     }
     //设置名字
-    private var nameViewChange:NPEViewController? = {
+    fileprivate var nameViewChange:NPEViewController? = {
         let nameViewChange = NPEViewController()
         return nameViewChange
     }()
-    @objc private func nameViewClick() {
+    @objc fileprivate func nameViewClick() {
         if self.signLabel.text == nil {
             nameViewChange?.nameCurrent = ""
         }
@@ -121,11 +121,11 @@ class InforViewController: UIViewController{
         self.navigationController?.pushViewController(nameViewChange!, animated: true)
     }
     //设置签名
-    private lazy var signViewChange:SignViewController? = {
+    fileprivate lazy var signViewChange:SignViewController? = {
         let signViewChange = SignViewController()
         return signViewChange
     }()
-    @objc private func signViewClick() {
+    @objc fileprivate func signViewClick() {
         if self.signLabel.text == nil {
             signViewChange?.signCurrent = ""
         }
@@ -135,12 +135,12 @@ class InforViewController: UIViewController{
         signViewChange?.id = "A civilization is gone with wind"
         self.navigationController?.pushViewController(signViewChange!, animated: true)
     }
-    private lazy var genderVC:GenderViewController? = {
+    fileprivate lazy var genderVC:GenderViewController? = {
         let genVC = GenderViewController()
         return genVC
     }()
     //设置性别
-    @objc private func genderViewClick() {
+    @objc fileprivate func genderViewClick() {
         if self.genderLabel.text == nil {
             genderVC?.currentGender = "Secret"
         }
@@ -150,7 +150,7 @@ class InforViewController: UIViewController{
         self.navigationController?.pushViewController(genderVC!, animated: true)
     }
     //设置邮箱
-    @objc private func emailViewClick() {
+    @objc fileprivate func emailViewClick() {
         
     }
  
@@ -158,7 +158,7 @@ class InforViewController: UIViewController{
     
     
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "InforView", bundle: nil)
     }
 
@@ -177,7 +177,7 @@ class InforViewController: UIViewController{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.selectedInforWithPhoneNumber()
         SVProgressHUD.dismiss()
@@ -197,7 +197,7 @@ class InforViewController: UIViewController{
 /// MARK: UIActionSheetDelegate
 extension InforViewController: UIActionSheetDelegate {
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         print(buttonIndex, terminator: "")
         switch buttonIndex {
         case 1:
@@ -214,28 +214,28 @@ extension InforViewController: UIActionSheetDelegate {
 extension InforViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     /// 打开照相功能
-    private func openCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            pickVC.sourceType = .Camera
-            self.presentViewController(pickVC, animated: true, completion: nil)
+    fileprivate func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            pickVC.sourceType = .camera
+            self.present(pickVC, animated: true, completion: nil)
         } else {
-            SVProgressHUD.showErrorWithStatus("模拟器没有摄像头,请链接真机调试", maskType: SVProgressHUDMaskType.Black)
+            SVProgressHUD.showError(withStatus: "模拟器没有摄像头,请链接真机调试", maskType: SVProgressHUDMaskType.black)
         }
     }
     
     /// 打开相册
-    private func openUserPhotoLibrary() {
-        pickVC.sourceType = .PhotoLibrary
+    fileprivate func openUserPhotoLibrary() {
+        pickVC.sourceType = .photoLibrary
         pickVC.allowsEditing = true
-        presentViewController(pickVC, animated: true, completion: nil)
+        present(pickVC, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // 对用户选着的图片进行质量压缩,上传服务器,本地持久化存储
         if let typeStr = info[UIImagePickerControllerMediaType] as? String {
             if typeStr == "public.image" {
                 if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-                    var data: NSData?
+                    var data: Data?
 //                    let smallImage = UIImage.imageClipToNewImage(image, newSize: headImage!.size)
 //                    if UIImagePNGRepresentation(smallImage) == nil {
 //                        data = UIImageJPEGRepresentation(smallImage, 0.8)
@@ -255,18 +255,18 @@ extension InforViewController: UIImagePickerControllerDelegate, UINavigationCont
 //                        iconView!.iconButton.setImage(UIImage(data: NSData(contentsOfFile: SD_UserIconData_Path)!)!.imageClipOvalImage(), forState: .Normal)
 //
                     } else {
-                        SVProgressHUD.showErrorWithStatus("照片保存失败", maskType: SVProgressHUDMaskType.Black)
+                        SVProgressHUD.showError(withStatus: "照片保存失败", maskType: SVProgressHUDMaskType.black)
                     }
                 }
             }
         } else {
-            SVProgressHUD.showErrorWithStatus("图片无法获取", maskType: SVProgressHUDMaskType.Black)
+            SVProgressHUD.showError(withStatus: "图片无法获取", maskType: SVProgressHUDMaskType.black)
         }
         
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        pickVC.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        pickVC.dismiss(animated: true, completion: nil)
     }
 }

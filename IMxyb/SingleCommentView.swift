@@ -15,12 +15,12 @@ class SingleCommentView: UIView {
 
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var commentButton: UIButton!
-    @IBAction func commentButtonClick(sender: UIButton) {
+    @IBAction func commentButtonClick(_ sender: UIButton) {
     }
     
     var model:CommentModel? {
         didSet {
-            self.headImage.sd_setImageWithURL(NSURL(string: (model?.head!)!)!, placeholderImage: UIImage(named: "logo_s"))
+            self.headImage.sd_setImage(with: URL(string: (model?.head!)!)!, placeholderImage: UIImage(named: "logo_s"))
             self.nameLabel.text = model?.name
             self.contentLabel.text = model?.text
         }
@@ -31,8 +31,8 @@ class SingleCommentView: UIView {
     
     
     
-    class func singleCommentView(frame:CGRect) -> SingleCommentView {
-        let view = NSBundle.mainBundle().loadNibNamed("SingleCommentView", owner: nil, options: nil).last as? SingleCommentView
+    class func singleCommentView(_ frame:CGRect) -> SingleCommentView {
+        let view = Bundle.main.loadNibNamed("SingleCommentView", owner: nil, options: nil)?.last as? SingleCommentView
         view?.frame = frame
         return view!
     }

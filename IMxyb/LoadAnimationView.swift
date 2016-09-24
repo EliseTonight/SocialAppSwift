@@ -22,7 +22,7 @@ class LoadAnimationView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var images:[UIImage]? = {
+    fileprivate lazy var images:[UIImage]? = {
         var images:[UIImage] = []
         for i in 0...92 {
             let image = UIImage(named: String(format: "wnx%02d",i))!
@@ -32,7 +32,7 @@ class LoadAnimationView: UIImageView {
     }()
     
     
-    private func animationSet() {
+    fileprivate func animationSet() {
         self.animationRepeatCount = 10000
         self.animationDuration = 1.0
         self.animationImages = self.images
@@ -45,7 +45,7 @@ class LoadAnimationView: UIImageView {
         return loadView
     }
     
-    func startLoad(center:CGPoint) {
+    func startLoad(_ center:CGPoint) {
         self.center = center
         self.startAnimating()
     }

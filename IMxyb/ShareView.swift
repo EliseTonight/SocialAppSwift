@@ -16,23 +16,23 @@ class ShareView: UIView {
 //    
 //    var shareModel:ShareModel?
     
-    @IBAction func weChatButton(sender: UIButton) {
+    @IBAction func weChatButton(_ sender: UIButton) {
         hideShareView()
     }
     
-    @IBAction func friendsButton(sender: UIButton) {
+    @IBAction func friendsButton(_ sender: UIButton) {
         hideShareView()
     }
     
-    @IBAction func sinaWeiboButton(sender: UIButton) {
+    @IBAction func sinaWeiboButton(_ sender: UIButton) {
         hideShareView()
     }
 
     //分享页面的黑色背景（button）
-    private lazy var backButton:UIButton? =  {
+    fileprivate lazy var backButton:UIButton? =  {
         let backButton = UIButton(frame: AppSize)
         backButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-        backButton.addTarget(self, action: "backButtonMethod", forControlEvents: UIControlEvents.TouchUpInside)
+        backButton.addTarget(self, action: "backButtonMethod", for: UIControlEvents.touchUpInside)
         return backButton
     }()
     
@@ -44,26 +44,26 @@ class ShareView: UIView {
     
     
     class func shareViewWithXib() -> ShareView {
-        let shareView = NSBundle.mainBundle().loadNibNamed("ShareView", owner: nil, options: nil).last as? ShareView
+        let shareView = Bundle.main.loadNibNamed("ShareView", owner: nil, options: nil)?.last as? ShareView
         //即正好处于显示的下面，被隐藏
-        shareView?.frame = CGRectMake(0, AppHeight, AppWidth, 155)
+        shareView?.frame = CGRect(x: 0, y: AppHeight, width: AppWidth, height: 155)
         return shareView!
     }
     
     //展现分享页
-    func showShareView(rect:CGRect) {
+    func showShareView(_ rect:CGRect) {
         self.superview?.insertSubview(backButton!, belowSubview: self)
-        UIView.animateWithDuration(0.4) { () -> Void in
+        UIView.animate(withDuration: 0.4, animations: { () -> Void in
             self.frame = rect
-        }
+        }) 
     }
     func hideShareView() {
         backButton!.removeFromSuperview()
-        UIView.animateWithDuration(0.4, animations: { () -> Void in
-            self.frame = CGRectMake(0, AppHeight, AppWidth, 215)
-            }) { (final) -> Void in
+        UIView.animate(withDuration: 0.4, animations: { () -> Void in
+            self.frame = CGRect(x: 0, y: AppHeight, width: AppWidth, height: 215)
+            }, completion: { (final) -> Void in
                 self.removeFromSuperview()
-        }
+        }) 
         
     }
 

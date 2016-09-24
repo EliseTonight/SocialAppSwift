@@ -14,10 +14,10 @@ class NPEViewController: UIViewController {
         didSet{
             let tap = UITapGestureRecognizer(target: self, action: "cancelEdit")
             backView.addGestureRecognizer(tap)
-            backView.userInteractionEnabled = true
+            backView.isUserInteractionEnabled = true
         }
     }
-    @objc private func cancelEdit() {
+    @objc fileprivate func cancelEdit() {
         self.view.endEditing(true)
     }
     
@@ -31,34 +31,34 @@ class NPEViewController: UIViewController {
         didSet {
             textField.text = nameCurrent
             if textField.text == "" {
-                self.clearButton.hidden = true
+                self.clearButton.isHidden = true
             }
         }
     }
     //实时监测text的变化来确定bool值
-    private func textValueGuard() {
-        self.textField.addTarget(self, action: "textValueChange:", forControlEvents: UIControlEvents.EditingChanged)
+    fileprivate func textValueGuard() {
+        self.textField.addTarget(self, action: "textValueChange:", for: UIControlEvents.editingChanged)
     }
-    @objc private func textValueChange(text:UITextField) {
+    @objc fileprivate func textValueChange(_ text:UITextField) {
         if text.text == "" {
-            self.clearButton.hidden = true
+            self.clearButton.isHidden = true
         }
         else {
-            self.clearButton.hidden = false
+            self.clearButton.isHidden = false
         }
     }
-    @IBAction func clearButtonClick(sender: UIButton) {
+    @IBAction func clearButtonClick(_ sender: UIButton) {
         self.textField.text = ""
     }
 
     
     //右边的保存
-    private func setRightButton() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.Plain, target: self, action: "saveButtonClick")
-        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.greenColor()], forState: UIControlState.Normal)
+    fileprivate func setRightButton() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: "saveButtonClick")
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.green], for: UIControlState())
     }
     //保存按钮
-    @objc private func saveButtonClick() {
+    @objc fileprivate func saveButtonClick() {
 //        let object = AVObject(withoutDataWithClassName: "_User", objectId: self.id)
 //        object.setObject(self.textField.text, forKey: "username")
 //        SVProgressHUD.show()
@@ -74,7 +74,7 @@ class NPEViewController: UIViewController {
     }
     
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "NPEViewController", bundle: nil)
     }
 

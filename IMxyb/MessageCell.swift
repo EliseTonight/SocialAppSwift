@@ -56,11 +56,11 @@ class MessageCell: UITableViewCell {
     
     
     
-    class func messageCellWithXib(tableView:UITableView) -> MessageCell {
+    class func messageCellWithXib(_ tableView:UITableView) -> MessageCell {
         let cellId = "messageCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? MessageCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? MessageCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("MessageCell", owner: nil, options: nil).last as? MessageCell
+            cell = Bundle.main.loadNibNamed("MessageCell", owner: nil, options: nil)?.last as? MessageCell
         }
         return cell!
     }
@@ -70,11 +70,11 @@ class MessageCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

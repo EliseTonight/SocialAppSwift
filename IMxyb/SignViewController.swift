@@ -25,13 +25,13 @@ class SignViewController: UIViewController {
         }
     }
     
-    @IBAction func clearButtonClick(sender: UIButton) {
+    @IBAction func clearButtonClick(_ sender: UIButton) {
         textView.text = ""
     }
     
     
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "SignViewController", bundle: nil)
     }
 
@@ -39,12 +39,12 @@ class SignViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     //右边的保存
-    private func setRightButton() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.Plain, target: self, action: "saveButtonClick")
-        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.greenColor()], forState: UIControlState.Normal)
+    fileprivate func setRightButton() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: UIBarButtonItemStyle.plain, target: self, action: "saveButtonClick")
+        self.navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.green], for: UIControlState())
     }
     //保存按钮
-    @objc private func saveButtonClick() {
+    @objc fileprivate func saveButtonClick() {
 //        let object = AVObject(withoutDataWithClassName: "_User", objectId: self.id)
 //        object.setObject(self.textView.text, forKey: "sign")
 //        SVProgressHUD.show()

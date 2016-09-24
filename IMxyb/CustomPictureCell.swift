@@ -26,10 +26,10 @@ class CustomPictureCell: UITableViewCell {
     
     var model:EnthusModel? {
         didSet {
-            self.headImage.sd_setImageWithURL(NSURL(string: (model?.avatar)!), placeholderImage: UIImage(named: "logo_s"))
-            self.mainImageView.sd_setImageWithURL(NSURL(string: (model?.cover_url)!), placeholderImage: UIImage(named: "quesheng"))
-            self.rightTopImageView.sd_setImageWithURL(NSURL(string: (model?.more_pic_urls![0])!), placeholderImage: UIImage(named: "quesheng"))
-            self.rightBottomImageView.sd_setImageWithURL(NSURL(string: (model?.more_pic_urls![1])!), placeholderImage: UIImage(named: "quesheng"))
+            self.headImage.sd_setImage(with: URL(string: (model?.avatar)!), placeholderImage: UIImage(named: "logo_s"))
+            self.mainImageView.sd_setImage(with: URL(string: (model?.cover_url)!), placeholderImage: UIImage(named: "quesheng"))
+            self.rightTopImageView.sd_setImage(with: URL(string: (model?.more_pic_urls![0])!), placeholderImage: UIImage(named: "quesheng"))
+            self.rightBottomImageView.sd_setImage(with: URL(string: (model?.more_pic_urls![1])!), placeholderImage: UIImage(named: "quesheng"))
             self.nameLabel.text = model?.name
             self.typeLabel.text = model?.type
             self.titleLabel.text = model?.title
@@ -52,8 +52,8 @@ class CustomPictureCell: UITableViewCell {
             
             
             if model?.photos_count == "0" {
-                self.blackShadowView.hidden = true
-                self.pictureNumLabel.hidden = true
+                self.blackShadowView.isHidden = true
+                self.pictureNumLabel.isHidden = true
             }
             else {
                 self.pictureNumLabel.text = (model?.photos_count)! + "+"
@@ -67,11 +67,11 @@ class CustomPictureCell: UITableViewCell {
     
     
     
-    class func cutomPictureCellWithXib(tableView:UITableView) -> CustomPictureCell {
+    class func cutomPictureCellWithXib(_ tableView:UITableView) -> CustomPictureCell {
         let cellId = "customPictureCell"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellId) as? CustomPictureCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? CustomPictureCell
         if cell == nil {
-            cell = NSBundle.mainBundle().loadNibNamed("CustomPictureCell", owner: nil, options: nil).last as? CustomPictureCell
+            cell = Bundle.main.loadNibNamed("CustomPictureCell", owner: nil, options: nil)?.last as? CustomPictureCell
         }
         return cell!
     }
@@ -83,11 +83,11 @@ class CustomPictureCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .None
+        selectionStyle = .none
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

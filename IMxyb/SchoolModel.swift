@@ -42,14 +42,14 @@ class SchoolModels:NSObject,DictModelProtocol {
     var date:String?
     
     
-    class func loadSchoolsModels(completion:(data:SchoolModels?,error:NSError?) -> ()) {
-        let path = NSBundle.mainBundle().pathForResource("schoolDataRow", ofType: nil)
-        let data = NSData(contentsOfFile: path!)
+    class func loadSchoolsModels(_ completion:(_ data:SchoolModels?,_ error:NSError?) -> ()) {
+        let path = Bundle.main.path(forResource: "schoolDataRow", ofType: nil)
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         if data != nil {
-            let dict = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+            let dict = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? NSDictionary
             let tools = DictModelManager.sharedManager
             let finalData = tools.objectWithDictionary(dict!, cls: SchoolModels.self) as? SchoolModels
-            completion(data: finalData, error: nil)
+            completion(finalData, nil)
         }
     }
     

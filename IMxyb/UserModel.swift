@@ -25,20 +25,20 @@ public var UserStars:String?
 
 
 
-public class OCPublicProperty:NSObject {
+open class OCPublicProperty:NSObject {
     var userP = UserPhone
     var userI = UserId
     
     class func getData() -> String? {
         return UserPhone
     }
-    private static let instance = OCPublicProperty()
+    fileprivate static let instance = OCPublicProperty()
     
     class func getUserP() -> String? {
         return UserPhone
     }
 }
-public class appPro:NSObject {
+open class appPro:NSObject {
 
     
     class func getW() -> CGFloat? {
@@ -50,7 +50,7 @@ public class appPro:NSObject {
 }
 
 
-public class userDataBase:NSObject {
+open class userDataBase:NSObject {
     
 }
 

@@ -109,8 +109,8 @@ class MessageModels:NSObject {
         self.youNum.removeAll()
     }
     //生成不重复头像
-    private var iconCopy = IconArray
-    private var nameCopy = NameArray
+    fileprivate var iconCopy = IconArray
+    fileprivate var nameCopy = NameArray
     ///随机生成数据
     func initRandomData() {
         self.iconCopy = IconArray
@@ -125,13 +125,13 @@ class MessageModels:NSObject {
         //生成头像，不可以重复,生成名字
         for i in 0..<num {
             let currentNum = Int(arc4random() % UInt32(iconCopy.count))
-            let remove = self.iconCopy.removeAtIndex(currentNum)
+            let remove = self.iconCopy.remove(at: currentNum)
             icon.append(remove)
             self.cells![i].icon = remove
         }
         for i in 0..<num {
             let currentNum = Int(arc4random() % UInt32(nameCopy.count))
-            let remove = self.nameCopy.removeAtIndex(currentNum)
+            let remove = self.nameCopy.remove(at: currentNum)
             youNum.append(remove)
             self.cells![i].youName = remove
         }

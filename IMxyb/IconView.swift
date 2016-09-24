@@ -16,11 +16,11 @@ class IconView: UIView {
         setUp()
     }
     
-    private func setUp() {
-        self.backgroundColor = UIColor.clearColor()
-        iconButton = UIButton(type: .Custom) 
-        iconButton.setImage(UIImage(named: "my"), forState: .Normal)
-        iconButton.addTarget(self, action: "iconBtnClick", forControlEvents: .TouchUpInside)
+    fileprivate func setUp() {
+        self.backgroundColor = UIColor.clear
+        iconButton = UIButton(type: .custom) 
+        iconButton.setImage(UIImage(named: "my"), for: UIControlState())
+        iconButton.addTarget(self, action: "iconBtnClick", for: .touchUpInside)
         iconButton.clipsToBounds = true
         addSubview(iconButton)
     }
@@ -28,16 +28,16 @@ class IconView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         let mrgin: CGFloat = 8
-        iconButton.frame = CGRectMake(mrgin, mrgin, self.width - mrgin * 2, self.height - mrgin * 2)
-        iconButton.setBackgroundImage(UIImage(named: "white")?.imageClipOvalImage(), forState: .Normal)
+        iconButton.frame = CGRect(x: mrgin, y: mrgin, width: self.width - mrgin * 2, height: self.height - mrgin * 2)
+        iconButton.setBackgroundImage(UIImage(named: "white")?.imageClipOvalImage(), for: UIControlState())
     }
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let circleWidth: CGFloat = 2
         // 圆角矩形
-        let path = UIBezierPath(roundedRect: CGRectMake(circleWidth, circleWidth, rect.size.width - circleWidth * 2, rect.size.width - circleWidth * 2), cornerRadius: rect.size.width)
+        let path = UIBezierPath(roundedRect: CGRect(x: circleWidth, y: circleWidth, width: rect.size.width - circleWidth * 2, height: rect.size.width - circleWidth * 2), cornerRadius: rect.size.width)
         path.lineWidth = circleWidth
-        UIColor.whiteColor().set()
+        UIColor.white.set()
         path.stroke()
     }
     
@@ -48,6 +48,6 @@ class IconView: UIView {
 
 
 protocol IconViewDelegate: NSObjectProtocol {
-    func iconView(iconView: IconView, didClick iconButton: UIButton)
+    func iconView(_ iconView: IconView, didClick iconButton: UIButton)
 }
 

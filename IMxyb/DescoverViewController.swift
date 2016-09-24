@@ -12,10 +12,10 @@ public let ContactCellId = "ContactCell"
 class DescoverViewController: UIViewController {
 
     
-    private var sectionArray:NSMutableArray = NSMutableArray()
-    private var sectionTitlesArray:NSMutableArray = NSMutableArray()
+    fileprivate var sectionArray:NSMutableArray = NSMutableArray()
+    fileprivate var sectionTitlesArray:NSMutableArray = NSMutableArray()
     
-    private lazy var anotherVC:AnotherInfoViewController? = {
+    fileprivate lazy var anotherVC:AnotherInfoViewController? = {
         let anotherVC = AnotherInfoViewController()
         return anotherVC
     }()
@@ -28,82 +28,83 @@ class DescoverViewController: UIViewController {
 //    private func setMainTableView() {
 //        self.mainTableView
 //    }
-    private var isAbleHasData = true
+    fileprivate var isAbleHasData = true
     var model:ContactModels? {
         didSet {
         }
     }
     
     
-    private var mainTableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: AppHeight - 108))
+    fileprivate var mainTableView:UITableView = UITableView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: AppHeight - 108))
     
-    private func getData(num:Int) {
+    fileprivate func getData(_ num:Int) {
         self.model = ContactModels()
         self.model?.initMemberWithNum(num)
         self.createList()
         self.mainTableView.reloadData()
     }
     
-    private func createList() {
+    fileprivate func createList() {
         //create a temp sectionArray
-        let collation = UILocalizedIndexedCollation.currentCollation()
+        let collation = UILocalizedIndexedCollation.current()
         let numberOfSections = collation.sectionTitles.count
         let newSectionArray = NSMutableArray()
         for _ in 0..<numberOfSections {
-            newSectionArray.addObject(NSMutableArray())
+            newSectionArray.add(NSMutableArray())
         }
         // insert Persons info into newSectionArray
         for modelIn in (self.model?.contacts)! {
-            let sectionIndex = collation.sectionForObject(modelIn, collationStringSelector: "getName")
-            newSectionArray[sectionIndex].addObject(modelIn)
+            let sectionIndex = collation.section(for: modelIn, collationStringSelector: Selector("getName"))
+            (newSectionArray[sectionIndex] as AnyObject).add(modelIn)
         }
 //        print(newSectionArray)
         //sort the person of each section
         for index in 0..<numberOfSections {
             let personsForSection = newSectionArray[index]
-            let sortedPersonsForSection = collation.sortedArrayFromArray(personsForSection as! [AnyObject], collationStringSelector: "getName")
+            let sortedPersonsForSection = collation.sortedArray(from: personsForSection as! [AnyObject], collationStringSelector: Selector(("getName")))
             newSectionArray[index] = sortedPersonsForSection as! [ContactModel]
         }
         let temp = NSMutableArray()
         self.sectionTitlesArray = NSMutableArray()
-        newSectionArray.enumerateObjectsUsingBlock { (arr, idx, stop) -> Void in
-            if arr.count == 0 {
-                temp.addObject(arr)
+        newSectionArray.enumerateObjects ({ (arr, idx, stop) in
+            if (arr as AnyObject).count == 0 {
+                temp.add(arr)
             }
             else {
-                self.sectionTitlesArray.addObject(collation.sectionTitles[idx])
+                self.sectionTitlesArray.add(collation.sectionTitles[idx])
             }
-        }
-        newSectionArray.removeObjectsInArray(temp as [AnyObject])
+        })
+        
+        newSectionArray.removeObjects(in: temp as [AnyObject])
         let operrationModels:NSMutableArray = NSMutableArray()
         for i in 0...1 {
             if i == 0 {
                 let modelM = ContactModel()
                 modelM.name = "新的朋友"
                 modelM.image = "shortcut_addFri"
-                operrationModels.addObject(modelM)
+                operrationModels.add(modelM)
             }
             else {
                 let modelM = ContactModel()
                 modelM.name = "群聊"
                 modelM.image = "shortcut_multichat"
-                operrationModels.addObject(modelM)
+                operrationModels.add(modelM)
             }
         }
-        newSectionArray.insertObject(operrationModels, atIndex: 0)
-        self.sectionTitlesArray.insertObject("", atIndex: 0)
+        newSectionArray.insert(operrationModels, at: 0)
+        self.sectionTitlesArray.insert("", at: 0)
         self.sectionArray = newSectionArray
     }
-    private var whiteView = UIView(frame: CGRect(x: 0, y: -100, width: AppWidth, height: 100))
-    private func setTableView() {
+    fileprivate var whiteView = UIView(frame: CGRect(x: 0, y: -100, width: AppWidth, height: 100))
+    fileprivate func setTableView() {
         self.title = "通讯录"
         self.view.addSubview(mainTableView)
-        whiteView.backgroundColor = UIColor.whiteColor()
+        whiteView.backgroundColor = UIColor.white
         self.view.addSubview(whiteView)
-        self.mainTableView.separatorStyle = .None
-        self.mainTableView.sectionIndexBackgroundColor = UIColor.clearColor()
-        self.mainTableView.sectionIndexColor = UIColor.lightGrayColor()
-        self.mainTableView.backgroundColor = UIColor.whiteColor()
+        self.mainTableView.separatorStyle = .none
+        self.mainTableView.sectionIndexBackgroundColor = UIColor.clear
+        self.mainTableView.sectionIndexColor = UIColor.lightGray
+        self.mainTableView.backgroundColor = UIColor.white
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         
@@ -113,7 +114,7 @@ class DescoverViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         setTableView()
         getData(30)
         
@@ -126,53 +127,53 @@ class DescoverViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     //覆盖的View
-    private var defaultView = DefaultView.defaultViewFromXib()
-    private func setDefaultView() {
+    fileprivate var defaultView = DefaultView.defaultViewFromXib()
+    fileprivate func setDefaultView() {
         weak var selfRef = self
         self.defaultView.delegate = selfRef
         self.view.addSubview(defaultView)
         self.defaultView.frame = CGRect(x: 0, y: 0, width: AppWidth, height: AppHeight)
     }  //设置左侧与右侧
-    private func setNavigationItem(imageName:String,enable:Bool) {
+    fileprivate func setNavigationItem(_ imageName:String,enable:Bool) {
         //左侧
         let imageView = CornerImageView()
         imageView.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
         imageView.image = UIImage(named: imageName)
         imageView.cornerRadius = 18
-        let tap = UITapGestureRecognizer(target: self, action: "leftButtonClick")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(DescoverViewController.leftButtonClick))
         imageView.addGestureRecognizer(tap)
-        imageView.userInteractionEnabled = true
+        imageView.isUserInteractionEnabled = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: imageView)
-        self.navigationItem.leftBarButtonItem?.enabled = enable
+        self.navigationItem.leftBarButtonItem?.isEnabled = enable
         //        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: CornerImageView(image: UIImage(named: "head")), style: UIBarButtonItemStyle.Plain, target: self, action: "leftButtonClick")
     }
-    @objc private func leftButtonClick() {
+    @objc fileprivate func leftButtonClick() {
         self.tabBarController?.selectedIndex = 3
     }
 
     //MARK: - 登录信息判断模块
-    private func loginInfoJudge() {
+    fileprivate func loginInfoJudge() {
         if UserPhone == nil {
-            self.defaultView.hidden = false
+            self.defaultView.isHidden = false
             self.setNavigationItem("logo_s", enable: false)
         }
         else if UserPhone == "15112345678"{
-            self.defaultView.hidden = true
+            self.defaultView.isHidden = true
             self.isAbleHasData = true
             self.setNavigationItem("head", enable: true)
         }
         else {
-            self.defaultView.hidden = true
+            self.defaultView.isHidden = true
             self.isAbleHasData = false
             self.setNavigationItem("logo_s", enable: true)
         }
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loginInfoJudge()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         loginInfoJudge()
 //        self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -190,39 +191,39 @@ class DescoverViewController: UIViewController {
 
 }
 extension DescoverViewController:UITableViewDelegate,UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        print(self.sectionArray[section].count)
-        return self.sectionArray[section].count
+        return (self.sectionArray[section] as AnyObject).count
     }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return self.sectionTitlesArray.count
     }
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:UITableViewCell?
-        cell = tableView.dequeueReusableCellWithIdentifier(ContactCellId)
+        cell = tableView.dequeueReusableCell(withIdentifier: ContactCellId)
         if cell == nil {
-            cell = ContactCell(style: .Default, reuseIdentifier: ContactCellId)
+            cell = ContactCell(style: .default, reuseIdentifier: ContactCellId)
         }
-        let section = indexPath.section
-        let row = indexPath.row
+        let section = (indexPath as NSIndexPath).section
+        let row = (indexPath as NSIndexPath).row
         let smodel = self.sectionArray[section] as! NSArray
         let finalModel = smodel[row]
-        (cell as! ContactCell).model = finalModel as! ContactModel
+        (cell as! ContactCell).model = finalModel as? ContactModel
         return cell!
     }
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sectionTitlesArray.objectAtIndex(section) as! String
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.sectionTitlesArray.object(at: section) as? String
     }
-    func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return self.sectionTitlesArray as! [String]
     }
 //    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 //        return 100
 //    }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let section = indexPath.section
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = (indexPath as NSIndexPath).section
         if section != 0 && section != 1 {
-            let row = indexPath.row
+            let row = (indexPath as NSIndexPath).row
             let smodel = self.sectionArray[section] as! NSArray
             let finalModel = smodel[row] as! ContactModel
             let messageModel = MessageModel()

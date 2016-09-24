@@ -13,85 +13,85 @@ class GenderViewController: UIViewController {
     @IBOutlet weak var maleView: UIView! {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: "maleViewTap")
-            maleView.userInteractionEnabled = true
+            maleView.isUserInteractionEnabled = true
             maleView.addGestureRecognizer(tap)
         }
     }
     @IBOutlet weak var femaleView: UIView! {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: "femaleViewTap")
-            femaleView.userInteractionEnabled = true
+            femaleView.isUserInteractionEnabled = true
             femaleView.addGestureRecognizer(tap)
         }
     }
     @IBOutlet weak var secretView: UIView! {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: "secretViewTap")
-            secretView.userInteractionEnabled = true
+            secretView.isUserInteractionEnabled = true
             secretView.addGestureRecognizer(tap)
         }
     }
     @IBOutlet weak var maleCheckImageView: UIImageView! {
         didSet {
-            maleCheckImageView.hidden = true
+            maleCheckImageView.isHidden = true
         }
     }
     @IBOutlet weak var femaleCheckImageView: UIImageView! {
         didSet {
-            femaleCheckImageView.hidden = true
+            femaleCheckImageView.isHidden = true
         }
     }
     @IBOutlet weak var secretCheckImageView: UIImageView! {
         didSet {
-            secretCheckImageView.hidden = true
+            secretCheckImageView.isHidden = true
         }
     }
     
-    @objc private func maleViewTap() {
+    @objc fileprivate func maleViewTap() {
 //        let object = AVObject(withoutDataWithClassName: "_User", objectId: UserId)
 //        object.setObject("男", forKey: "gender")
 //        SVProgressHUD.show()
 //        object.saveInBackgroundWithBlock { (success, error) -> Void in
 //            if success {
 //                SVProgressHUD.showSuccessWithStatus("修改成功")
-                self.maleCheckImageView.hidden = false
-                self.femaleCheckImageView.hidden = true
-                self.secretCheckImageView.hidden = true
-                self.navigationController?.popViewControllerAnimated(true)
+                self.maleCheckImageView.isHidden = false
+                self.femaleCheckImageView.isHidden = true
+                self.secretCheckImageView.isHidden = true
+                self.navigationController?.popViewController(animated: true)
 //            }
 //            else {
 //                SVProgressHUD.showErrorWithStatus("操作失败")
 //            }
 //        }
     }
-    @objc private func femaleViewTap() {
+    @objc fileprivate func femaleViewTap() {
 //        let object = AVObject(withoutDataWithClassName: "_User", objectId: UserId)
 //        object.setObject("女", forKey: "gender")
 //        SVProgressHUD.show()
 //        object.saveInBackgroundWithBlock { (success, error) -> Void in
 //            if success {
 //                SVProgressHUD.showSuccessWithStatus("修改成功")
-                self.maleCheckImageView.hidden = true
-                self.femaleCheckImageView.hidden = false
-                self.secretCheckImageView.hidden = true
-                self.navigationController?.popViewControllerAnimated(true)
+                self.maleCheckImageView.isHidden = true
+                self.femaleCheckImageView.isHidden = false
+                self.secretCheckImageView.isHidden = true
+                self.navigationController?.popViewController(animated: true)
 //            }
 //            else {
 //                SVProgressHUD.showErrorWithStatus("操作失败")
 //            }
 //        }
     }
-    @objc private func secretViewTap() {
+    @objc fileprivate func secretViewTap() {
 //        let object = AVObject(withoutDataWithClassName: "_User", objectId: UserId)
 //        object.setObject("Secret", forKey: "gender")
 //        SVProgressHUD.show()
 //        object.saveInBackgroundWithBlock { (success, error) -> Void in
 //            if success {
 //                SVProgressHUD.showSuccessWithStatus("修改成功")
-                self.maleCheckImageView.hidden = true
-                self.femaleCheckImageView.hidden = true
-                self.secretCheckImageView.hidden = false
-                self.navigationController?.popViewControllerAnimated(true)
+                self.maleCheckImageView.isHidden = true
+                self.femaleCheckImageView.isHidden = true
+                self.secretCheckImageView.isHidden = false
+                self.navigationController?.popViewController(animated: true)
 //            }
 //            else {
 //                SVProgressHUD.showErrorWithStatus("操作失败")
@@ -101,27 +101,27 @@ class GenderViewController: UIViewController {
     //接受的性别
     var currentGender:String = ""
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "GenderViewController", bundle: nil)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    private func initCheckOut() {
+    fileprivate func initCheckOut() {
         if self.currentGender == "女" {
-            self.maleCheckImageView.hidden = true
-            self.femaleCheckImageView.hidden = false
-            self.secretCheckImageView.hidden = true
+            self.maleCheckImageView.isHidden = true
+            self.femaleCheckImageView.isHidden = false
+            self.secretCheckImageView.isHidden = true
         }
         else if self.currentGender == "男" {
-            self.maleCheckImageView.hidden = false
-            self.femaleCheckImageView.hidden = true
-            self.secretCheckImageView.hidden = true
+            self.maleCheckImageView.isHidden = false
+            self.femaleCheckImageView.isHidden = true
+            self.secretCheckImageView.isHidden = true
         }
         else {
-            self.maleCheckImageView.hidden = true
-            self.femaleCheckImageView.hidden = true
-            self.secretCheckImageView.hidden = false
+            self.maleCheckImageView.isHidden = true
+            self.femaleCheckImageView.isHidden = true
+            self.secretCheckImageView.isHidden = false
         }
     }
     

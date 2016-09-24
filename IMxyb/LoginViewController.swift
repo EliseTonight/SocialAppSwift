@@ -12,38 +12,38 @@ class LoginViewController: UIViewController {
 
     
     
-    private var userModel = currentUser()
+    fileprivate var userModel = currentUser()
     
     
     
     
     
-    private lazy var meView:MeViewController? = {
+    fileprivate lazy var meView:MeViewController? = {
         let meView = MeViewController()
         return meView
     }()
     //tools
-    private var regExTools = RegExManager.sharedManager
-    private var patternModel = RegExStrList()
+    fileprivate var regExTools = RegExManager.sharedManager
+    fileprivate var patternModel = RegExStrList()
     
-    private var isPhoneAble:Bool? {
+    fileprivate var isPhoneAble:Bool? {
         get {
             return regExTools.getResultWithRegExStr(nameText.text!, pattern: patternModel.regExPhoneStr)
         }
     }
-    private var isPasswordAble:Bool? {
+    fileprivate var isPasswordAble:Bool? {
         get {
             return regExTools.getResultWithRegExStr(passwordText.text!, pattern: patternModel.regExPasswordStr)
         }
     }
-    private var isAbleLogin:Bool? {
+    fileprivate var isAbleLogin:Bool? {
         get {
             return (isPasswordAble! && isPhoneAble!)
         }
     }
     
     
-    private lazy var registerView:RegistViewController? = {
+    fileprivate lazy var registerView:RegistViewController? = {
         let registerView = RegistViewController()
         return registerView
     }()
@@ -54,7 +54,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var backImage: UIImageView! {
         didSet {
             let tap = UITapGestureRecognizer(target: self, action: "backImageClick")
-            backImage.userInteractionEnabled = true
+            backImage.isUserInteractionEnabled = true
             backImage.addGestureRecognizer(tap)
         }
     }
@@ -63,8 +63,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var loginButton: UIButton! {
         didSet {
-            loginButton.enabled = false
-            loginButton.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
+            loginButton.isEnabled = false
+            loginButton.setTitleColor(UIColor.lightGray, for: UIControlState.disabled)
         }
     }
     @IBOutlet weak var newButton: UIButton!
@@ -73,22 +73,22 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var weiboButton: UIButton!
     @IBOutlet weak var qqButton: UIButton!
     
-    @IBAction func qqButtonClick(sender: UIButton) {
+    @IBAction func qqButtonClick(_ sender: UIButton) {
         
     }
-    @IBAction func weboButtonClick(sender: UIButton) {
+    @IBAction func weboButtonClick(_ sender: UIButton) {
         
     }
 
-    @IBAction func weChatButtonClick(sender: UIButton) {
+    @IBAction func weChatButtonClick(_ sender: UIButton) {
         
     }
     
-    @IBAction func newButtonClick(sender: UIButton) {
+    @IBAction func newButtonClick(_ sender: UIButton) {
         self.navigationController?.pushViewController(registerView!, animated: true)
     }
     //登录按钮
-    @IBAction func loginButtonClick(sender: UIButton) {
+    @IBAction func loginButtonClick(_ sender: UIButton) {
 //        SVProgressHUD.show()
 //        AVUser.logInWithMobilePhoneNumberInBackground(nameText.text!, password: passwordText.text!) { (user, error) -> Void in
 //            if error == nil {
@@ -120,21 +120,21 @@ class LoginViewController: UIViewController {
 //        }
         if self.nameText.text == "15112345678" {
             if self.passwordText.text == "123456789" {
-                SVProgressHUD.showSuccessWithStatus("登录成功")
+                SVProgressHUD.showSuccess(withStatus: "登录成功")
                 UserPhone = "15112345678"
-                self.navigationController?.popViewControllerAnimated(true)
+                self.navigationController?.popViewController(animated: true)
             }
             else {
-                SVProgressHUD.showSuccessWithStatus("登录失败")
+                SVProgressHUD.showSuccess(withStatus: "登录失败")
             }
         }
         else {
-            SVProgressHUD.showSuccessWithStatus("登录失败")
+            SVProgressHUD.showSuccess(withStatus: "登录失败")
         }
         
     }
-    @IBAction func backButtonClick(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func backButtonClick(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -144,8 +144,8 @@ class LoginViewController: UIViewController {
     }
     
     //渐变显示
-    private func apperaAnimate() {
-        UIView.animateWithDuration(0.7) { () -> Void in
+    fileprivate func apperaAnimate() {
+        UIView.animate(withDuration: 0.7, animations: { () -> Void in
             self.backImage.alpha = 1.0
             self.backButton.alpha = 1.0
             self.nameText.alpha = 1.0
@@ -156,11 +156,11 @@ class LoginViewController: UIViewController {
             self.weChatButton.alpha = 0.8
             self.qqButton.alpha = 0.8
             self.weiboButton.alpha = 0.8
-        }
+        }) 
         
     }
-    private func disappearAnimate() {
-        UIView.animateWithDuration(0.7) { () -> Void in
+    fileprivate func disappearAnimate() {
+        UIView.animate(withDuration: 0.7, animations: { () -> Void in
             self.backImage.alpha = 0.1
             self.backButton.alpha = 0.1
             self.nameText.alpha = 0.1
@@ -171,26 +171,26 @@ class LoginViewController: UIViewController {
             self.weChatButton.alpha = 0.1
             self.qqButton.alpha = 0.1
             self.weiboButton.alpha = 0.1
-        }
+        }) 
     }
     //实时监测text的变化来确定bool值
-    private func textValueGuard() {
-        self.nameText.addTarget(self, action: "textValueChange:", forControlEvents: UIControlEvents.EditingChanged)
-        self.passwordText.addTarget(self, action: "textValueChange:", forControlEvents: UIControlEvents.EditingChanged)
+    fileprivate func textValueGuard() {
+        self.nameText.addTarget(self, action: "textValueChange:", for: UIControlEvents.editingChanged)
+        self.passwordText.addTarget(self, action: "textValueChange:", for: UIControlEvents.editingChanged)
     }
-    @objc private func textValueChange(textField:KaedeTextField) {
-        self.loginButton.enabled = isAbleLogin!
+    @objc fileprivate func textValueChange(_ textField:KaedeTextField) {
+        self.loginButton.isEnabled = isAbleLogin!
     }
     
     //清除打字内容
-    private func clearInput() {
+    fileprivate func clearInput() {
         self.nameText.text = nil
         self.passwordText.text = nil
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         textValueGuard()
         // Do any additional setup after loading the view.
     }
@@ -201,7 +201,7 @@ class LoginViewController: UIViewController {
     }
     
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //取消焦点
         clearInput()
@@ -210,7 +210,7 @@ class LoginViewController: UIViewController {
         apperaAnimate()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //取消焦点
         self.nameText.resignFirstResponder()
@@ -218,7 +218,7 @@ class LoginViewController: UIViewController {
         disappearAnimate()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.endEditing(false)
     }

@@ -13,7 +13,7 @@ class MeMainView: UIView {
     @IBOutlet weak var signLabel: UILabel!
     
     var delegate:MeMainViewDelegate?
-    private var userLocal = currentUser()
+    fileprivate var userLocal = currentUser()
     var model:String? {
 
         didSet {
@@ -32,7 +32,7 @@ class MeMainView: UIView {
     }
     
     //通过电话的设置来提取信息
-    private func selectedInforWithPhoneNumber() {
+    fileprivate func selectedInforWithPhoneNumber() {
 //        let query = AVQuery(className: "_User")
 //        query.whereKey("mobilePhoneNumber", equalTo: UserPhone)
 //        query.getFirstObjectInBackgroundWithBlock { (object, error) -> Void in
@@ -65,7 +65,7 @@ class MeMainView: UIView {
     @IBOutlet weak var starLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
-            nameLabel.userInteractionEnabled = true
+            nameLabel.isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: "headImageClick")
             nameLabel.addGestureRecognizer(tap)
         }
@@ -74,30 +74,30 @@ class MeMainView: UIView {
     //头部图像具有点击事件
     @IBOutlet weak var headImage: CornerImageView! {
         didSet {
-            headImage.userInteractionEnabled = true
+            headImage.isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: "headImageClick")
             headImage.addGestureRecognizer(tap)
         }
     }
-    @IBAction func likeButtonClick(sender: UIButton) {
+    @IBAction func likeButtonClick(_ sender: UIButton) {
         
     }
-    @IBAction func collectionButtonClick(sender: UIButton) {
+    @IBAction func collectionButtonClick(_ sender: UIButton) {
         
     }
     
-    @IBAction func shakeButtonClick(sender: UIButton) {
+    @IBAction func shakeButtonClick(_ sender: UIButton) {
         delegate?.shakeButtonDelegate!(sender)
     }
     
 
-    @objc private func headImageClick() {
+    @objc fileprivate func headImageClick() {
         delegate?.headImageDelegate()
     }
     
     
     class func meMainViewWithXib() -> MeMainView {
-        let view = NSBundle.mainBundle().loadNibNamed("MeMainView", owner: nil, options: nil).last as? MeMainView
+        let view = Bundle.main.loadNibNamed("MeMainView", owner: nil, options: nil)?.last as? MeMainView
         view?.frame.size.width = AppWidth
         return view!
     }
@@ -111,9 +111,9 @@ class MeMainView: UIView {
 
 }
 @objc protocol MeMainViewDelegate {
-    optional func shakeButtonDelegate(sender:UIButton)
-    optional func consultButtonDelegate(sender:UIButton)
-    optional func likeButtonDelegate(sender:UIButton)
-    optional func collectionDelegate(sender:UIButton)
+    @objc optional func shakeButtonDelegate(_ sender:UIButton)
+    @objc optional func consultButtonDelegate(_ sender:UIButton)
+    @objc optional func likeButtonDelegate(_ sender:UIButton)
+    @objc optional func collectionDelegate(_ sender:UIButton)
     func headImageDelegate()
 }

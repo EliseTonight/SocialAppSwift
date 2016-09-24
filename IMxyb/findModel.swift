@@ -23,11 +23,11 @@ class FindModels:NSObject {
     
     
     //生成不重复头像
-    private var iconCopy = IconArray
-    private var nameCopy = FindNameArray
+    fileprivate var iconCopy = IconArray
+    fileprivate var nameCopy = FindNameArray
     
     ///初始化生成数据
-    internal func initAllFindAbleData(num:Int) {
+    internal func initAllFindAbleData(_ num:Int) {
         
         for i in 0..<num {
             self.iconCopy = IconArray
@@ -35,10 +35,10 @@ class FindModels:NSObject {
             let singleFind = FindModel()
             //生成头像，不可以重复,生成名字
             let currentNum = Int(arc4random() % UInt32(iconCopy.count))
-            let remove = self.iconCopy.removeAtIndex(currentNum)
+            let remove = self.iconCopy.remove(at: currentNum)
             singleFind.headImage = remove
             let currentNameNum = Int(arc4random() % UInt32(nameCopy.count))
-            let removeName = self.nameCopy.removeAtIndex(currentNum)
+            let removeName = self.nameCopy.remove(at: currentNum)
             singleFind.name = removeName
             self.allFindAbleData.append(singleFind)
         }
@@ -51,4 +51,4 @@ class FindModels:NSObject {
 
 
 
-let FindDataBase = []
+//let FindDataBase = []

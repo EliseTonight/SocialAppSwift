@@ -12,12 +12,12 @@ class AnotherInfoBottomView: UIView {
     
     var delegate:AnotherInfoBottomViewDelegate?
     
-    @IBAction func sendMessageButtonClick(sender: UIButton) {
+    @IBAction func sendMessageButtonClick(_ sender: UIButton) {
         delegate?.anotherInfoBottomViewButtonClick(sender)
     }
 
-    class func AnotherInfoBottonViewFromXib(frame:CGRect) -> AnotherInfoBottomView {
-        let view = NSBundle.mainBundle().loadNibNamed("AnotherInfoBottomView", owner: nil, options: nil).last as? AnotherInfoBottomView
+    class func AnotherInfoBottonViewFromXib(_ frame:CGRect) -> AnotherInfoBottomView {
+        let view = Bundle.main.loadNibNamed("AnotherInfoBottomView", owner: nil, options: nil)?.last as? AnotherInfoBottomView
         view?.frame = frame
         return view!
     }
@@ -39,5 +39,5 @@ class AnotherInfoBottomView: UIView {
 
 }
 protocol AnotherInfoBottomViewDelegate {
-    func anotherInfoBottomViewButtonClick(sender:UIButton)
+    func anotherInfoBottomViewButtonClick(_ sender:UIButton)
 }

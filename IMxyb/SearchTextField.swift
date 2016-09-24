@@ -10,22 +10,22 @@ import UIKit
 
 class SearchTextField: UITextField {
     
-    private var leftV: UIView!
-    private var leftImageView: UIImageView!
+    fileprivate var leftV: UIView!
+    fileprivate var leftImageView: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         leftImageView = UIImageView(image: UIImage(named: "search"))
-        leftV = UIView(frame: CGRectMake(5, 0, 10 * 2 + leftImageView.width, 30))
-        leftImageView.frame.origin = CGPointMake(5, (leftV.height - leftImageView.height) * 0.5)
+        leftV = UIView(frame: CGRect(x: 5, y: 0, width: 10 * 2 + leftImageView.width, height: 30))
+        leftImageView.frame.origin = CGPoint(x: 5, y: (leftV.height - leftImageView.height) * 0.5)
         leftV.addSubview(leftImageView)
-        self.autocorrectionType = .No
+        self.autocorrectionType = .no
         leftView = leftV
-        leftViewMode = UITextFieldViewMode.Always
+        leftViewMode = UITextFieldViewMode.always
         background = UIImage(named: "searchbox")
         placeholder = "手机号 昵称"
         
-        clearButtonMode = UITextFieldViewMode.Always
+        clearButtonMode = UITextFieldViewMode.always
     }
     
     required init?(coder aDecoder: NSCoder) {

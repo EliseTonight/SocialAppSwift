@@ -14,14 +14,14 @@ class ProModels:NSObject,DictModelProtocol {
     var date:String?
     
     
-    class func loadProModels(completion:(data:ProModels?,error:NSError?) -> ()) {
-        let path = NSBundle.mainBundle().pathForResource("proDataRow", ofType: nil)
-        let data = NSData(contentsOfFile: path!)
+    class func loadProModels(_ completion:(_ data:ProModels?,_ error:NSError?) -> ()) {
+        let path = Bundle.main.path(forResource: "proDataRow", ofType: nil)
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         if data != nil {
-            let dict = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+            let dict = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? NSDictionary
             let tools = DictModelManager.sharedManager
             let finalData = tools.objectWithDictionary(dict!, cls: ProModels.self) as? ProModels
-            completion(data: finalData, error: nil)
+            completion(finalData, nil)
         }
     }
     

@@ -9,16 +9,16 @@
 import UIKit
 
 protocol SearchViewDelegate: NSObjectProtocol {
-    func searchView(searchView: SearchView, searchTitle: String)
+    func searchView(_ searchView: SearchView, searchTitle: String)
 }
 
 class SearchView: UIView {
     /// 动画时长
-    private let animationDuration = 0.5
+    fileprivate let animationDuration = 0.5
     var searchTextField: SearchTextField!
     var searchBtn: UIButton!
     /// 是否已经缩放过
-    private var isScale: Bool = false
+    fileprivate var isScale: Bool = false
     weak var delegate: SearchViewDelegate?
     
     override init(frame: CGRect) {
@@ -26,7 +26,7 @@ class SearchView: UIView {
         
         searchTextField = SearchTextField()
         let margin: CGFloat = 20
-        searchTextField.frame = CGRectMake(margin, 20 * 0.5, AppWidth - 2 * margin, 30)
+        searchTextField.frame = CGRect(x: margin, y: 20 * 0.5, width: AppWidth - 2 * margin, height: 30)
         searchTextField.delegate = self
         addSubview(searchTextField)
         
@@ -35,14 +35,14 @@ class SearchView: UIView {
         addSubview(searchBtn)
         
         // 监听键盘弹出
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyBoardWillshow", name: UIKeyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: "keyBoardWillshow", name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
     
     func keyBoardWillshow() {
         
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
             self.searchBtn.alpha = 1
-            self.searchBtn.selected = false
+            self.searchBtn.isSelected = false
             if !self.isScale {
                 self.searchTextField.frame.size.width = self.searchTextField.width - 60
                 self.isScale = true
@@ -50,29 +50,29 @@ class SearchView: UIView {
         })
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.endEditing(true)
     }
     
     func resumeSearchTextField() {
-        UIView.animateWithDuration(animationDuration, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuration, animations: { () -> Void in
             if self.isScale {
                 self.searchBtn.alpha = 0
-                self.searchBtn.selected = false
+                self.searchBtn.isSelected = false
                 self.searchTextField.frame.size.width = self.searchTextField.width + 60
                 self.isScale = false
             }
         })
     }
     
-    func searchBtnClick(sender: UIButton) {
-        if sender.selected {
-            sender.selected = false
+    func searchBtnClick(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
             searchTextField.becomeFirstResponder()
         } else if searchTextField.text!.isEmpty {
             return
         } else {
-            sender.selected = true
+            sender.isSelected = true
             if delegate != nil {
                 delegate!.searchView(self, searchTitle: searchTextField.text!)
             }
@@ -80,7 +80,7 @@ class SearchView: UIView {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -89,7 +89,7 @@ class SearchView: UIView {
 }
 
 extension SearchView: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.text!.isEmpty {
             return false
         }

@@ -17,13 +17,13 @@ class MoreCommentButton: UIView {
     
     
     
-    @IBAction func moreButtonClick(sender: UIButton) {
+    @IBAction func moreButtonClick(_ sender: UIButton) {
         delegate?.moreCommentButton(sender)
     }
     
     
-    class func moreCommentButtonFromXib(frame:CGRect) -> MoreCommentButton {
-        let view = NSBundle.mainBundle().loadNibNamed("MoreCommentButton", owner: nil, options: nil).last as? MoreCommentButton
+    class func moreCommentButtonFromXib(_ frame:CGRect) -> MoreCommentButton {
+        let view = Bundle.main.loadNibNamed("MoreCommentButton", owner: nil, options: nil)?.last as? MoreCommentButton
         view?.frame = frame
         return view!
     }
@@ -46,5 +46,5 @@ class MoreCommentButton: UIView {
 
 }
 @objc protocol MoreCommentButtonDelegate {
-    func moreCommentButton(sender:UIButton)
+    func moreCommentButton(_ sender:UIButton)
 }

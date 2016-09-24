@@ -13,14 +13,14 @@ class SearchButton: UIButton {
     init(frame: CGRect, target: AnyObject, action: Selector) {
         super.init(frame: frame)
         
-        setTitle("搜索", forState: .Normal)
-        setTitle("取消", forState: .Selected)
-        titleLabel!.font = UIFont.systemFontOfSize(18)
-        setTitleColor(UIColor.blackColor(), forState: .Normal)
-        setTitleColor(UIColor.blackColor(), forState: .Selected)
+        setTitle("搜索", for: UIControlState())
+        setTitle("取消", for: .selected)
+        titleLabel!.font = UIFont.systemFont(ofSize: 18)
+        setTitleColor(UIColor.black, for: UIControlState())
+        setTitleColor(UIColor.black, for: .selected)
         alpha = 0
-        titleLabel!.textAlignment = .Center
-        addTarget(target, action: action, forControlEvents: .TouchUpInside)
+        titleLabel!.textAlignment = .center
+        addTarget(target, action: action, for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {

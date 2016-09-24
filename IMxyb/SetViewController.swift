@@ -15,25 +15,25 @@ class SetViewController: UIViewController {
     @IBOutlet weak var introMeView: UIView!
     @IBOutlet weak var clearView: UIView!
 
-    @objc private func appStoreViewClick() {
+    @objc fileprivate func appStoreViewClick() {
         
     }
-    @objc private func shareViewClick() {
+    @objc fileprivate func shareViewClick() {
         
     }
-    @objc private func introMeViewClick() {
+    @objc fileprivate func introMeViewClick() {
 
     }
-    @objc private func clearViewClick() {
+    @objc fileprivate func clearViewClick() {
 
     }
 
-    private func setViewTap(view:UIView,action:Selector) {
+    fileprivate func setViewTap(_ view:UIView,action:Selector) {
         let tap = UITapGestureRecognizer(target: self, action: action)
-        view.userInteractionEnabled = true
+        view.isUserInteractionEnabled = true
         view.addGestureRecognizer(tap)
     }
-    private func setAllViewTap() {
+    fileprivate func setAllViewTap() {
         self.setViewTap(appStoreView, action: "appStoreViewClick")
         self.setViewTap(shareView, action: "shareViewClick")
         self.setViewTap(introMeView, action: "introMeViewClick")
@@ -44,7 +44,7 @@ class SetViewController: UIViewController {
 //        let setView = SetView.setViewWithXib(CGRect(x: 0, y: 0, width: AppWidth, height: AppHeight))
 //        return setView
 //    }()
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: "SetView", bundle: nil)
     }
 

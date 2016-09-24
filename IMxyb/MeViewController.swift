@@ -17,22 +17,22 @@ class MeViewController: UIViewController {
 
     
     //登录界面
-    private lazy var loginView:LoginViewController? = {
+    fileprivate lazy var loginView:LoginViewController? = {
         let loginView = LoginViewController()
         return loginView
     }()
     //个人信息
-    private lazy var inforView:InforViewController? = {
+    fileprivate lazy var inforView:InforViewController? = {
         let inforView = InforViewController()
         return inforView
     }()
     
     //有关页面
-    private var meMainView = MeMainView.meMainViewWithXib()
-    private var topImageHeight:CGFloat?
+    fileprivate var meMainView = MeMainView.meMainViewWithXib()
+    fileprivate var topImageHeight:CGFloat?
     
-    private lazy var scrollView:UIScrollView? = {
-        let scrollView = UIScrollView(frame: CGRectMake(0, 0, AppWidth, AppHeight - 64 - 45))
+    fileprivate lazy var scrollView:UIScrollView? = {
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: AppHeight - 64 - 45))
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1.0)
         scrollView.alwaysBounceVertical = true
@@ -41,30 +41,30 @@ class MeViewController: UIViewController {
         return scrollView
     }()
     //摇一摇界面
-    private lazy var shakeViewC:ShakeViewController? = {
+    fileprivate lazy var shakeViewC:ShakeViewController? = {
         let shakeViewC = ShakeViewController()
         return shakeViewC
     }()
 
     //设置导航栏
-    private func setNavigation() {
+    fileprivate func setNavigation() {
         self.navigationItem.title = "我的"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting"), style: UIBarButtonItemStyle.Plain, target: self, action: "setButtonClick")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting"), style: UIBarButtonItemStyle.plain, target: self, action: "setButtonClick")
     }
     //设置
-    private lazy var setView:SetViewController? = {
+    fileprivate lazy var setView:SetViewController? = {
         let setView = SetViewController()
         return setView
     }()
-    @objc private func setButtonClick() {
+    @objc fileprivate func setButtonClick() {
         self.navigationController?.pushViewController(setView!, animated: true)
     }
     
     
-    private func setMainView() {
+    fileprivate func setMainView() {
         weak var selfRef = self
         self.meMainView.model = UserPhone
-        self.meMainView.frame = CGRectMake(0, 0, AppWidth, 551)
+        self.meMainView.frame = CGRect(x: 0, y: 0, width: AppWidth, height: 551)
         meMainView.delegate = selfRef
         self.topImageHeight = meMainView.topImage.frame.height
         self.scrollView?.addSubview(meMainView)
@@ -73,7 +73,7 @@ class MeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         setNavigation()
         setMainView()
 
@@ -84,7 +84,7 @@ class MeViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //即刷新界面
         self.meMainView.model = UserPhone
@@ -104,7 +104,7 @@ class MeViewController: UIViewController {
 
 }
 extension MeViewController :MeMainViewDelegate{
-    func shakeButtonDelegate(sender: UIButton) {
+    func shakeButtonDelegate(_ sender: UIButton) {
         
         self.navigationController?.pushViewController(shakeViewC!, animated: true)
     }
@@ -127,10 +127,10 @@ extension MeViewController :MeMainViewDelegate{
 }
 //uiscrollView
 extension MeViewController:UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offSetY = scrollView.contentOffset.y
         if offSetY <= 0 {
-            meMainView.topImage.frame = CGRectMake(offSetY / 4, offSetY, AppWidth - offSetY / 2,self.topImageHeight! - offSetY)
+            meMainView.topImage.frame = CGRect(x: offSetY / 4, y: offSetY, width: AppWidth - offSetY / 2,height: self.topImageHeight! - offSetY)
         }
         else {
             meMainView.topImage.frame.origin.y = 0

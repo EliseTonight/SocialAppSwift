@@ -20,49 +20,49 @@ class CommentViewController: UIViewController {
         }
     }
     //主要的tableView
-    private lazy var mainTabelView:UITableView? = {
-        let mainTabelView = UITableView(frame: CGRectMake(0, NavigationHeight, AppWidth, AppHeight - NavigationHeight), style: UITableViewStyle.Plain)
-        mainTabelView.backgroundColor = UIColor.whiteColor()
-        mainTabelView.separatorStyle = .None
+    fileprivate lazy var mainTabelView:UITableView? = {
+        let mainTabelView = UITableView(frame: CGRect(x: 0, y: NavigationHeight, width: AppWidth, height: AppHeight - NavigationHeight), style: UITableViewStyle.plain)
+        mainTabelView.backgroundColor = UIColor.white
+        mainTabelView.separatorStyle = .none
         return mainTabelView
     }()
-    private var backButton = UIButton()
-    private var headTitle = UILabel()
+    fileprivate var backButton = UIButton()
+    fileprivate var headTitle = UILabel()
     //渐变Navigation
-    private lazy var navigationCustom:UIView? = {
+    fileprivate lazy var navigationCustom:UIView? = {
         let navigationCustom = UIView(frame: CGRect(x: 0, y: 0, width: AppWidth, height: NavigationHeight))
-        navigationCustom.backgroundColor = UIColor.whiteColor()
+        navigationCustom.backgroundColor = UIColor.white
         navigationCustom.alpha = 1
         return navigationCustom
     }()
     //书写button
-    private var bottomView = WriteView.writeViewFromXib(CGRectMake(0, AppHeight - 40, AppWidth, 40))
+    fileprivate var bottomView = WriteView.writeViewFromXib(CGRect(x: 0, y: AppHeight - 40, width: AppWidth, height: 40))
     //设置头部
-    private func setNavigation() {
+    fileprivate func setNavigation() {
         self.view.addSubview(navigationCustom!)
-        self.setButton(backButton, frame: CGRectMake(-7, 20, 44, 44), image: "back_1", highImage: "back_2", selectedImage: nil, action: "backButtonClick:")
+        self.setButton(backButton, frame: CGRect(x: -7, y: 20, width: 44, height: 44), image: "back_1", highImage: "back_2", selectedImage: nil, action: "backButtonClick:")
         self.headTitle.text = "全部回复"
-        self.headTitle.frame = CGRectMake((AppWidth / 2) - 40, 20, 80, 44)
-        self.headTitle.font = UIFont.systemFontOfSize(16)
-        self.headTitle.textAlignment = .Center
+        self.headTitle.frame = CGRect(x: (AppWidth / 2) - 40, y: 20, width: 80, height: 44)
+        self.headTitle.font = UIFont.systemFont(ofSize: 16)
+        self.headTitle.textAlignment = .center
         self.view.addSubview(headTitle)
     }
     //设置底部
-    private func setBottom() {
+    fileprivate func setBottom() {
         bottomView.alpha = 1.0
         self.view.addSubview(bottomView)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChangeFrame:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: "keyboardWillChangeFrame:", name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     //编辑开始与编辑结束，变化view的位置，添加监听器
-    @objc private func keyboardWillChangeFrame(notify:NSNotification) {
-        let info = notify.userInfo
+    @objc fileprivate func keyboardWillChangeFrame(_ notify:Notification) {
+        let info = (notify as NSNotification).userInfo
         let durationTime:Double = info![UIKeyboardAnimationDurationUserInfoKey] as! Double
-        let keyboardEndFrame:CGRect = info![UIKeyboardFrameEndUserInfoKey]!.CGRectValue
-        let getMinY = CGRectGetMinY(keyboardEndFrame)
+        let keyboardEndFrame:CGRect = (info![UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
+        let getMinY = keyboardEndFrame.minY
 //        self.keyboardBackView?.hidden = !self.keyboardBackView!.hidden
-        UIView.animateWithDuration(durationTime) { () -> Void in
-            self.bottomView.frame = CGRectMake(0, getMinY - 40, AppWidth, 40)
-        }
+        UIView.animate(withDuration: durationTime, animations: { () -> Void in
+            self.bottomView.frame = CGRect(x: 0, y: getMinY - 40, width: AppWidth, height: 40)
+        }) 
     }
     //收回keyboard的背景覆盖view
 //    private lazy var keyboardBackView:UIView? = {
@@ -75,23 +75,23 @@ class CommentViewController: UIViewController {
 //        view.hidden = true
 //        return view
 //    }()
-    private func setCancelEdit() {
+    fileprivate func setCancelEdit() {
         let tap = UITapGestureRecognizer(target: self, action: "cancelEdit")
         self.mainTabelView?.addGestureRecognizer(tap)
-        self.mainTabelView?.userInteractionEnabled = true
+        self.mainTabelView?.isUserInteractionEnabled = true
     }
     
-    @objc private func cancelEdit() {
+    @objc fileprivate func cancelEdit() {
         self.view.endEditing(true)
     }
     
-    private func setContent() {
+    fileprivate func setContent() {
         self.mainTabelView?.delegate = self
         self.mainTabelView?.dataSource = self
         self.view.addSubview(mainTabelView!)
     }
-    @objc private func backButtonClick(sender:UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @objc fileprivate func backButtonClick(_ sender:UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -105,19 +105,19 @@ class CommentViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //        self.navigationController?.setToolbarHidden(false, animated: true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -135,16 +135,16 @@ class CommentViewController: UIViewController {
 
 }
 extension CommentViewController:UITableViewDelegate,UITableViewDataSource {
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:UITableViewCell?
         cell = CommentCell.commentCellWithXib(tableView)
-        (cell as! CommentCell).model = self.model![indexPath.row]
+        (cell as! CommentCell).model = self.model![(indexPath as NSIndexPath).row]
         return cell!
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model?.count ?? 0
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
 }

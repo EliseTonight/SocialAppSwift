@@ -34,6 +34,7 @@ class EnthusModel:NSObject {
     ///图片总数
     var photos_count:String?
     
+    
 }
 class EnthusModels:NSObject,DictModelProtocol {
     ///models
@@ -42,14 +43,14 @@ class EnthusModels:NSObject,DictModelProtocol {
     var date:String?
     
     
-    class func loadMeiTianMixModels(completion:(data:EnthusModels?,error:NSError?) -> ()) {
-        let path = NSBundle.mainBundle().pathForResource("enthusdataRow", ofType: nil)
-        let data = NSData(contentsOfFile: path!)
+    class func loadMeiTianMixModels(_ completion:(_ data:EnthusModels?,_ error:NSError?) -> ()) {
+        let path = Bundle.main.path(forResource: "enthusdataRow", ofType: nil)
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path!))
         if data != nil {
-            let dict = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+            let dict = try! JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? NSDictionary
             let tools = DictModelManager.sharedManager
             let finalData = tools.objectWithDictionary(dict!, cls: EnthusModels.self) as? EnthusModels
-            completion(data: finalData, error: nil)
+            completion(finalData, nil)
         }
     }
 
